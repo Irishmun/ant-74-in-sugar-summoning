@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|solutionrelative:scripts\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|d:\\github\\third-person-godot\\scripts\\debug\\debuginput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|D:\\github\\third-person-godot\\scripts\\debug\\debuginput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|solutionrelative:scripts\\debug\\debuginput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -38,8 +38,7 @@
               "RelativeToolTip": "scripts\\debug\\DebugInput.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T01:57:12.543Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-12T01:57:12.543Z"
             },
             {
               "$type": "Document",

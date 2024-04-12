@@ -10,10 +10,12 @@ radius = 0.25
 [sub_resource type="SphereShape3D" id="SphereShape3D_ouop7"]
 radius = 0.07
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("CamRoot", "Cam")]
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("CamRoot", "Cam", "animator", "MeshRoot")]
 script = ExtResource("1_4f4xc")
 CamRoot = NodePath("CamHorizontal")
 Cam = NodePath("CamHorizontal/CamVertical")
+animator = NodePath("Antstronaut/AnimationPlayer")
+MeshRoot = NodePath("Antstronaut")
 MovementSpeed = 0.75
 RotationSpeed = 10.0
 LookSensitivity = 0.5
@@ -148,7 +150,6 @@ bones/81/scale = Vector3(1, 1, 1)
 bones/82/rotation = Quaternion(-0.132423, -0.00346321, 0.0114318, 0.991121)
 bones/82/scale = Vector3(1, 1, 1)
 bones/83/rotation = Quaternion(0.255372, 0.585571, 0.585571, -0.498997)
-bones/83/scale = Vector3(1, 1, 1)
 bones/84/position = Vector3(-0.0235539, 0.0875187, -0.00962712)
 bones/84/rotation = Quaternion(-0.41836, -0.608359, 0.644255, 0.199526)
 bones/84/scale = Vector3(1, 1, 1)
@@ -161,7 +162,6 @@ bones/88/scale = Vector3(1, 0.999998, 1)
 bones/89/rotation = Quaternion(-2.47685e-07, 0.981265, -0.192664, 3.02094e-08)
 bones/89/scale = Vector3(1, 1, 1)
 bones/90/rotation = Quaternion(-0.255372, 0.585571, 0.585571, 0.498997)
-bones/90/scale = Vector3(1, 1, 1)
 bones/91/position = Vector3(0.0235539, 0.0875187, -0.00962712)
 bones/91/rotation = Quaternion(0.418243, -0.608438, 0.644217, -0.199649)
 bones/91/scale = Vector3(1, 1, 1)
