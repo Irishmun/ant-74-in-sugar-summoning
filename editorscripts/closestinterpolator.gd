@@ -9,12 +9,13 @@ func _run():
 	if selection.size()!=1 and not selection is AnimationPlayer: # if the wrong node is selected, do nothing
 		return
 	else:
-		interpolation_change(selection) # run the funstion in question
+		interpolation_change(selection,"ant/idle") # run the funstion in question
+		interpolation_change(selection,"ant/walk_Forward") # run the funstion in question
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func interpolation_change(selection):
-	var anim_track_1 = selection[0].get_animation("idle") # get the Animation that you are interested in (change "default" to your Animation's name)
+func interpolation_change(selection, name):
+	var anim_track_1 = selection[0].get_animation(name) # get the Animation that you are interested in (change "default" to your Animation's name)
 	var count  = anim_track_1.get_track_count() # get number of tracks (bones in your case)
 	print(count)
 	for i in count:

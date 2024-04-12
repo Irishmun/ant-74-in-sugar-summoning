@@ -38,11 +38,11 @@ public partial class Player : CharacterBody3D
 
         if (IsVisibleMovement() == true)
         {
-            animator.Play("walk_Forward");
+            animator.Play("ant/walk_Forward");
         }
         else
         {
-            animator.Play("idle");
+            animator.Play("ant/idle");
         }
     }
 
@@ -62,7 +62,6 @@ public partial class Player : CharacterBody3D
         float targetRotation = Mathf.Atan2(_velocity.X, _velocity.Z) - GlobalRotation.Y;
         float lerpRotation = Mathf.LerpAngle(MeshRoot.GlobalRotation.Y, targetRotation, RotationSpeed * (float)delta);
         MeshRoot.GlobalRotation = new Vector3(MeshRoot.GlobalRotation.X, lerpRotation, MeshRoot.GlobalRotation.Z);
-        GD.Print($"direction:{_velocity} |targetRotation:{Mathf.RadToDeg(targetRotation)}({targetRotation}) |Mesh rotation:{MeshRoot.GlobalRotationDegrees}({MeshRoot.GlobalRotation}) ");
     }
 
     public override void _Input(InputEvent @event)
