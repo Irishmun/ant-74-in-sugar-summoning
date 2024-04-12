@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://cbyye80vhkfpu"]
+
+[ext_resource type="Texture2D" uid="uid://cddshv3nk74ic" path="res://models/ant/Antstronaut_Antrstonaut_NewUV_antstronaut_512_BaseMap.png" id="1_c1xp0"]
+[ext_resource type="Texture2D" uid="uid://b5n7di5ycj3ix" path="res://models/ant/Antstronaut_Antrstonaut_metal_AO_Rough_Smooth.png" id="2_fp414"]
+[ext_resource type="Texture2D" uid="uid://ghahwm5ppsb4" path="res://models/ant/Antstronaut_antstronaut_normal.png" id="3_gkwou"]
+
+[resource]
+resource_name = "antstronaut_512"
+cull_mode = 2
+albedo_texture = ExtResource("1_c1xp0")
+metallic = 0.72
+metallic_texture = ExtResource("2_fp414")
+roughness_texture = ExtResource("2_fp414")
+roughness_texture_channel = 2
+normal_enabled = true
+normal_texture = ExtResource("3_gkwou")
+ao_enabled = true
+ao_texture = ExtResource("2_fp414")
+ao_texture_channel = 1
+texture_filter = 2

@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://cro8dkxe66pwl"]
+
+[ext_resource type="Texture2D" uid="uid://cm33m2fi5kqij" path="res://models/ant/Antstronaut_head_diff.png" id="1_uytmv"]
+[ext_resource type="Texture2D" uid="uid://gh56yvwijiky" path="res://models/ant/Antstronaut_Antrstonaut_NewUV_Ant_head_MaskMap.png" id="2_dhijt"]
+[ext_resource type="Texture2D" uid="uid://bt7iln1p507pd" path="res://models/ant/Antstronaut_Antrstonaut_NewUV_Ant_head_Normal.png" id="3_g50t2"]
+
+[resource]
+resource_name = "Head"
+cull_mode = 2
+albedo_texture = ExtResource("1_uytmv")
+metallic = 1.0
+metallic_texture = ExtResource("2_dhijt")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_dhijt")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_g50t2")
