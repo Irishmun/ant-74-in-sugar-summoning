@@ -7,6 +7,7 @@ public partial class Player : CharacterBody3D
     [Export] private Node3D CamRoot, Cam;
     [Export] private AnimationPlayer animator;
     [Export] private Node3D MeshRoot;
+    [Export] private CoinStack CoinStack;
     [ExportGroup("Movement")]
     [Export] private float MovementSpeed = 1, RotationSpeed = 1;
     [ExportGroup("Camera")]
@@ -17,6 +18,7 @@ public partial class Player : CharacterBody3D
 
 
     private bool _usingController = false;
+    private bool _isHoldingCoins = false;
     private Vector2 _camMovement, _inputDir;
     private Vector3 _direction;
     private Vector3 _velocity;
@@ -26,6 +28,7 @@ public partial class Player : CharacterBody3D
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
+        CoinStack.Player = this;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,13 +39,30 @@ public partial class Player : CharacterBody3D
             RotateCamera();
         }
 
+
         if (IsVisibleMovement() == true)
         {
-            animator.Play("ant/walk_Forward");
+            if (_isHoldingCoins == true)
+            {
+                animator.Play("ant/walk_hold");
+
+            }
+            else
+            {
+                animator.Play("ant/walk_Forward");
+            }
         }
         else
         {
-            animator.Play("ant/idle");
+            if (_isHoldingCoins == true)
+            {
+                animator.Play("ant/idle_hold");
+
+            }
+            else
+            {
+                animator.Play("ant/idle");
+            }
         }
     }
 
@@ -101,8 +121,9 @@ public partial class Player : CharacterBody3D
         CamRoot.RotateY(Mathf.DegToRad(-_camMovement.X * LookSensitivity));
         Cam.RotateX(Mathf.DegToRad(-_camMovement.Y * LookSensitivity));
         Cam.RotationDegrees = new Vector3(Mathf.Clamp(Cam.RotationDegrees.X, MaxVerticalLook.X, MaxVerticalLook.Y), Cam.RotationDegrees.Y, Cam.RotationDegrees.Z);
-        
+
     }
 
     private bool IsVisibleMovement() => Mathf.Abs(_inputDir.X) > 0 || Mathf.Abs(_inputDir.Y) > 0;
+    public bool IsHoldingCoins { get => _isHoldingCoins; set => _isHoldingCoins = value; }
 }

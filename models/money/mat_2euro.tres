@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://b7l4a7wcghw5q"]
+
+[ext_resource type="Texture2D" uid="uid://b7j6u0rkck22g" path="res://models/money/2euro_2euro.png" id="1_753qq"]
+[ext_resource type="Texture2D" uid="uid://ln6uj0cjy4xt" path="res://models/money/2euro_2euro-normla.png" id="2_x3in5"]
+
+[resource]
+resource_name = "mat_2euro"
+cull_mode = 2
+albedo_texture = ExtResource("1_753qq")
+metallic = 0.75
+roughness = 0.25
+normal_enabled = true
+normal_texture = ExtResource("2_x3in5")

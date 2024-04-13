@@ -1,0 +1,107 @@
+[gd_scene load_steps=5 format=3 uid="uid://vhe76y1cwq50"]
+
+[ext_resource type="Texture2D" uid="uid://d0mb7qgcusemc" path="res://sprites/dialog.png" id="1_6xbmq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sa1ot"]
+atlas = ExtResource("1_6xbmq")
+region = Rect2(2, 2, 736, 188)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mcyh"]
+atlas = ExtResource("1_6xbmq")
+region = Rect2(556, 358, 128, 128)
+
+[sub_resource type="LabelSettings" id="LabelSettings_w5kaw"]
+font_size = 24
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="hud" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="dialog" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -151.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="dialog"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -368.0
+offset_top = -203.0
+offset_right = 368.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_sa1ot")
+
+[node name="icon" type="TextureRect" parent="dialog/Background"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -338.0
+offset_top = -132.0
+offset_right = -210.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_1mcyh")
+
+[node name="Label" type="Label" parent="dialog/Background"]
+layout_mode = 1
+offset_left = 16.0
+offset_top = 21.0
+offset_right = 224.0
+offset_bottom = 55.0
+text = "Ant #18"
+label_settings = SubResource("LabelSettings_w5kaw")
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="dialog/Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.232
+anchor_top = 0.341
+anchor_right = 0.959
+anchor_bottom = 0.964
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "Your job is to acquire several of these discs, place them next to the sign that worker #35 and #46 have set up to summon one of these giants and make a trade for the crystals."
+visible_characters_behavior = 1
+
+[node name="pauseMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://gw4hymn5xlm"]
+[gd_scene load_steps=37 format=3 uid="uid://gw4hymn5xlm"]
 
 [ext_resource type="PackedScene" uid="uid://3x2wo2drj6vs" path="res://models/kenney_space-station-kit/computer-system.glb" id="1_0dqwx"]
 [ext_resource type="PackedScene" uid="uid://bxq2nwp02w36j" path="res://models/kenney_space-station-kit/floor.glb" id="2_gx82r"]
@@ -22,6 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://boh1p60nuupxu" path="res://models/kenney_space-station-kit/pipe-end.glb" id="19_ysmwh"]
 [ext_resource type="PackedScene" uid="uid://cwbgs0bdsp1w" path="res://models/kenney_space-station-kit/pipe-bend.glb" id="20_cwcij"]
 [ext_resource type="PackedScene" uid="uid://dlkv0vdobu40k" path="res://prefabs/player.tscn" id="22_5yvyt"]
+[ext_resource type="PackedScene" uid="uid://34m4bpcuop4a" path="res://prefabs/ent_1euro.tscn" id="23_m7ws1"]
+[ext_resource type="PackedScene" uid="uid://cuqj7c0ewhmkk" path="res://prefabs/ent_2euro.tscn" id="24_wj52n"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5vmbm"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -747,3 +749,12 @@ shadow_enabled = true
 
 [node name="player" parent="." instance=ExtResource("22_5yvyt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0, 1.5)
+
+[node name="Entities" type="Node" parent="."]
+
+[node name="ent_1euro" parent="Entities" instance=ExtResource("23_m7ws1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57252, 0, 1.20367)
+freeze_mode = 1
+
+[node name="ent_2euro" parent="Entities" instance=ExtResource("24_wj52n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.81458, 0, 2.06441)

@@ -1,13 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\github\\third-person-godot\\",
+  "WorkspaceRootPath": "D:\\github\\ant-74-in-sugar-summoning\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|d:\\github\\third-person-godot\\scripts\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|d:\\github\\ant-74-in-sugar-summoning\\scripts\\player\\coinstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|solutionrelative:scripts\\player\\coinstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|d:\\github\\ant-74-in-sugar-summoning\\scripts\\entities\\coin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|solutionrelative:scripts\\entities\\coin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|d:\\github\\ant-74-in-sugar-summoning\\scripts\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|solutionrelative:scripts\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|D:\\github\\third-person-godot\\scripts\\debug\\debuginput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|D:\\github\\ant-74-in-sugar-summoning\\scripts\\debug\\debuginput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{67538E5C-3BC8-4CB1-8238-DD8CEAFF7525}|Third-person-godot.csproj|solutionrelative:scripts\\debug\\debuginput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -18,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 156,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,25 +38,52 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DebugInput.cs",
-              "DocumentMoniker": "D:\\github\\third-person-godot\\scripts\\debug\\DebugInput.cs",
-              "RelativeDocumentMoniker": "scripts\\debug\\DebugInput.cs",
-              "ToolTip": "D:\\github\\third-person-godot\\scripts\\debug\\DebugInput.cs",
-              "RelativeToolTip": "scripts\\debug\\DebugInput.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "DocumentIndex": 0,
+              "Title": "CoinStack.cs",
+              "DocumentMoniker": "D:\\github\\ant-74-in-sugar-summoning\\scripts\\player\\CoinStack.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\CoinStack.cs",
+              "ToolTip": "D:\\github\\ant-74-in-sugar-summoning\\scripts\\player\\CoinStack.cs",
+              "RelativeToolTip": "scripts\\player\\CoinStack.cs",
+              "ViewState": "AQIAAF8AAAAAAAAAAAAAAHcAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T01:57:12.543Z"
+              "WhenOpened": "2024-04-13T14:40:17.579Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "Coin.cs",
+              "DocumentMoniker": "D:\\github\\ant-74-in-sugar-summoning\\scripts\\entities\\Coin.cs",
+              "RelativeDocumentMoniker": "scripts\\entities\\Coin.cs",
+              "ToolTip": "D:\\github\\ant-74-in-sugar-summoning\\scripts\\entities\\Coin.cs",
+              "RelativeToolTip": "scripts\\entities\\Coin.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-13T14:31:30.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DebugInput.cs",
+              "DocumentMoniker": "D:\\github\\ant-74-in-sugar-summoning\\scripts\\debug\\DebugInput.cs",
+              "RelativeDocumentMoniker": "scripts\\debug\\DebugInput.cs",
+              "ToolTip": "D:\\github\\ant-74-in-sugar-summoning\\scripts\\debug\\DebugInput.cs",
+              "RelativeToolTip": "scripts\\debug\\DebugInput.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T01:57:12.543Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Player.cs",
-              "DocumentMoniker": "D:\\github\\third-person-godot\\scripts\\player\\Player.cs",
+              "DocumentMoniker": "D:\\github\\ant-74-in-sugar-summoning\\scripts\\player\\Player.cs",
               "RelativeDocumentMoniker": "scripts\\player\\Player.cs",
-              "ToolTip": "D:\\github\\third-person-godot\\scripts\\player\\Player.cs",
+              "ToolTip": "D:\\github\\ant-74-in-sugar-summoning\\scripts\\player\\Player.cs",
               "RelativeToolTip": "scripts\\player\\Player.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEAAAAAFAAAA",
+              "ViewState": "AQIAAB8AAAAAAAAAAAAgwDoAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-12T01:28:32.92Z",
               "EditorCaption": ""

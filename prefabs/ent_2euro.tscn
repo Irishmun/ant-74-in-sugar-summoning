@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuqj7c0ewhmkk"]
+
+[ext_resource type="PackedScene" uid="uid://c4ucms4n2vp31" path="res://models/money/2euro.glb" id="1_htr37"]
+[ext_resource type="Script" path="res://scripts/entities/Coin.cs" id="2_1jh8e"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6nnvv"]
+height = 0.0872921
+radius = 0.513443
+
+[node name="ent_2euro" type="RigidBody3D"]
+process_mode = 1
+mass = 7.5
+script = ExtResource("2_1jh8e")
+CentValue = 200
+CoinName = "2 Euro"
+
+[node name="2euro" parent="." instance=ExtResource("1_htr37")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0438973, 0)
+shape = SubResource("CylinderShape3D_6nnvv")
