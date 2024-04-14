@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://be3g6l0qoj1hb"]
+
+[ext_resource type="Texture2D" uid="uid://bic7abv5cqvyv" path="res://models/awakening_woods/awakening_wood_awakSS06.png" id="1_y2lhl"]
+
+[resource]
+resource_name = "m33"
+cull_mode = 2
+albedo_texture = ExtResource("1_y2lhl")
+metallic = 0.5
+roughness = 0.5

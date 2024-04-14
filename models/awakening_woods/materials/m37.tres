@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bnmfdunta10u4"]
+
+[ext_resource type="Texture2D" uid="uid://cjnwvne5xe6q7" path="res://models/awakening_woods/awakening_wood_awakSS00.png" id="1_fd7n4"]
+
+[resource]
+resource_name = "m37"
+cull_mode = 2
+albedo_texture = ExtResource("1_fd7n4")
+metallic = 0.5
+roughness = 0.5

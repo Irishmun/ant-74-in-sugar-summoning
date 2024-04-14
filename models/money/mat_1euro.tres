@@ -7,7 +7,7 @@
 resource_name = "mat_1euro"
 cull_mode = 2
 albedo_texture = ExtResource("1_xsl15")
-metallic = 0.75
+metallic = 0.5
 roughness = 0.25
 normal_enabled = true
 normal_texture = ExtResource("2_4glnx")

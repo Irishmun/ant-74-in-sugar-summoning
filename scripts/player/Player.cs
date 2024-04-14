@@ -8,8 +8,12 @@ public partial class Player : CharacterBody3D
     [Export] private AnimationPlayer animator;
     [Export] private Node3D MeshRoot;
     [Export] private CoinStack CoinStack;
+    [Export] private RayCast3D FloorCast;
     [ExportGroup("Movement")]
     [Export] private float MovementSpeed = 1, RotationSpeed = 1;
+    [Export] private float RunMultiplier = 2;
+    [Export] private float DistanceBeforeFall = 0.126f;
+    [Export] private float Mass = 10;
     [ExportGroup("Camera")]
     [Export] private float ControllerDeadZone = 0.1f;
     [Export] private float ControllerMultiplier = 30f;
@@ -19,10 +23,14 @@ public partial class Player : CharacterBody3D
 
     private bool _usingController = false;
     private bool _isHoldingCoins = false;
+    private bool _isRunning = false;
+    private bool _wasOnFloor = false;
     private Vector2 _camMovement, _inputDir;
     private Vector3 _direction;
     private Vector3 _velocity;
     private float _acceleration = 1, _speed;
+    private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+    private float _lastFallingSpeed;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -34,6 +42,8 @@ public partial class Player : CharacterBody3D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        _isRunning = Input.IsActionPressed("Run");
+        GD.Print(_isRunning);
         if (_usingController == true)
         {
             RotateCamera();
@@ -42,6 +52,7 @@ public partial class Player : CharacterBody3D
 
         if (IsVisibleMovement() == true)
         {
+            animator.SpeedScale = _isRunning == true ? RunMultiplier : 1;
             if (_isHoldingCoins == true)
             {
                 animator.Play("ant/walk_hold");
@@ -54,6 +65,7 @@ public partial class Player : CharacterBody3D
         }
         else
         {
+            animator.SpeedScale = 1;
             if (_isHoldingCoins == true)
             {
                 animator.Play("ant/idle_hold");
@@ -68,23 +80,49 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (IsVisibleMovement() == false)
-        { return; }
+        bool onFloor = IsOnFloor();
+        _speed = _isRunning == true ? MovementSpeed * RunMultiplier : MovementSpeed;
 
         _direction = new Vector3(_inputDir.X, 0, _inputDir.Y).Normalized();
         _direction = _direction.Rotated(Vector3.Up, CamRoot.GlobalRotation.Y);
 
-        _velocity = new Vector3(MovementSpeed * _direction.X, 0, MovementSpeed * _direction.Z);
+        _velocity = new Vector3(_speed * _direction.X, 0, _speed * _direction.Z);
+
+        if (!onFloor)
+        {
+            if (_wasOnFloor == true)
+            {
+                if (_velocity.Y <= 0)
+                {
+                    if (FloorCast.GetCollider() != null)
+                    {
+                        float floorSnap = FloorSnapLength;
+                        FloorSnapLength = DistanceBeforeFall;
+                        ApplyFloorSnap();
+                        FloorSnapLength = floorSnap;
+                    }
+                }
+            }
+            else
+            {
+                _velocity.Y -= _gravity * Mass * (float)delta;
+            }
+        }
 
         Velocity = _velocity;//Velocity.Lerp(_velocity, _acceleration * (float)delta);
         MoveAndSlide();
 
+        _wasOnFloor = onFloor;//cache current frame onfloor state for next frame
+        _lastFallingSpeed = -_velocity.Y;
+
+        if (IsVisibleMovement() == false)
+        { return; }
         float targetRotation = Mathf.Atan2(_velocity.X, _velocity.Z) - GlobalRotation.Y;
         float lerpRotation = Mathf.LerpAngle(MeshRoot.GlobalRotation.Y, targetRotation, RotationSpeed * (float)delta);
         MeshRoot.GlobalRotation = new Vector3(MeshRoot.GlobalRotation.X, lerpRotation, MeshRoot.GlobalRotation.Z);
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _Input(InputEvent e)
     {
         _inputDir = Input.GetVector("Left", "Right", "Forward", "Backward");
     }
