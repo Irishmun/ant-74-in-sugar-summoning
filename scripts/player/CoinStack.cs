@@ -4,15 +4,18 @@ using System.Collections.Generic;
 public partial class CoinStack : Area3D
 {
     [Export] private Node3D Stack;
+    [Export] private AudioStreamPlayer3D PickupStream;
 
     private List<Coin> _coins = new List<Coin>();
     private Player _player;
     private List<Coin> _coinsInArea = new List<Coin>();
+    private HudUI _hud;
 
     public override void _Ready()
     {
         this.BodyEntered += CoinStack_BodyEntered;
         this.BodyExited += CoinStack_BodyExited;
+        _hud = GetNode<HudUI>(HudUI.HUD_UI_TREE);
     }
     public override void _ExitTree()
     {
@@ -46,16 +49,21 @@ public partial class CoinStack : Area3D
 
     public override void _Input(InputEvent e)
     {
+        if (_player.MayDoStuff == false)
+        { return; }
         if (e.IsActionPressed("Use"))
         {
             if (_coinsInArea.Count <= 0)
             { return; }
             AddCoinToStack(_coinsInArea[_coinsInArea.Count - 1]);
+            PickupStream.Play();
+            UpdateHud();
             return;
         }
         if (e.IsActionPressed("Drop"))
         {
             RemoveTopCoinFromStack();
+            UpdateHud();
             return;
         }
     }
@@ -118,5 +126,11 @@ public partial class CoinStack : Area3D
     private Vector3 GetForward(Node3D node)
     {
         return node.GlobalTransform.Basis.Z;
+    }
+
+    private void UpdateHud()
+    {
+        _hud.HeldCoins = _coins;
+        _hud.UpdateLabel();
     }
 }

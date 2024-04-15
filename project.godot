@@ -12,14 +12,21 @@ config_version=5
 
 config/name="ant74-in-sugar-summoning"
 config/tags=PackedStringArray("3d", "third_person")
-run/main_scene="res://scenes/d1_awakeningwood_01.tscn"
+run/main_scene="res://scenes/d0_mainmenu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://sprites/system/afterdark_2048.png"
 config/icon="res://icon.svg"
 
 [autoload]
 
 DebugInput="*res://scripts/debug/DebugInput.cs"
+SceneChangeUtil="*res://scripts/util/SceneChangeUtil.cs"
 GameUI="*res://scenes/gameUI.tscn"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
@@ -83,7 +90,7 @@ Drop={
 Run={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":8,"pressure":0.0,"pressed":true,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":7,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
 

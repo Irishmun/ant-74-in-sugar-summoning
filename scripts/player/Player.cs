@@ -21,6 +21,7 @@ public partial class Player : CharacterBody3D
     [Export] private Vector2 MaxVerticalLook = new Vector2(-45, 20);//X is down, Y is up
 
 
+
     private bool _usingController = false;
     private bool _isHoldingCoins = false;
     private bool _isRunning = false;
@@ -31,6 +32,7 @@ public partial class Player : CharacterBody3D
     private float _acceleration = 1, _speed;
     private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     private float _lastFallingSpeed;
+    private bool _mayDoStuff = true;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -43,14 +45,13 @@ public partial class Player : CharacterBody3D
     public override void _Process(double delta)
     {
         _isRunning = Input.IsActionPressed("Run");
-        GD.Print(_isRunning);
         if (_usingController == true)
         {
             RotateCamera();
         }
 
 
-        if (IsVisibleMovement() == true)
+        if (IsVisibleMovement() == true && _mayDoStuff == true)
         {
             animator.SpeedScale = _isRunning == true ? RunMultiplier : 1;
             if (_isHoldingCoins == true)
@@ -81,6 +82,8 @@ public partial class Player : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         bool onFloor = IsOnFloor();
+        if (_mayDoStuff == false)
+        { return; }
         _speed = _isRunning == true ? MovementSpeed * RunMultiplier : MovementSpeed;
 
         _direction = new Vector3(_inputDir.X, 0, _inputDir.Y).Normalized();
@@ -129,6 +132,8 @@ public partial class Player : CharacterBody3D
 
     public override void _UnhandledInput(InputEvent e)
     {
+        if (_mayDoStuff == false)
+        { return; }
         if (e is InputEventMouseMotion)
         {
             _usingController = false;
@@ -164,4 +169,6 @@ public partial class Player : CharacterBody3D
 
     private bool IsVisibleMovement() => Mathf.Abs(_inputDir.X) > 0 || Mathf.Abs(_inputDir.Y) > 0;
     public bool IsHoldingCoins { get => _isHoldingCoins; set => _isHoldingCoins = value; }
+
+    public bool MayDoStuff { get => _mayDoStuff; set => _mayDoStuff = value; }
 }

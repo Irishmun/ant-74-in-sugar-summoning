@@ -6,4 +6,8 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>Thirdpersongodot</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="scenes\" />
+    <Folder Include="scripts\util\" />
+  </ItemGroup>
 </Project>

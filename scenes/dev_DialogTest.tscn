@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btujedxqhhjt6"]
+
+[ext_resource type="Script" path="res://scripts/debug/dev_DialogTest.cs" id="1_fwcun"]
+
+[node name="DevDialogTest" type="Node"]
+script = ExtResource("1_fwcun")

@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cdr2hlgs7u7wr"]
+
+[ext_resource type="Texture2D" uid="uid://cctd0csgcmqmw" path="res://models/aura/aura_aura.png" id="1_3paqm"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i6dfh"]
+load_path = "res://.godot/imported/aura_aura.png-6a531105f6ecdae935a6f8110ab9c4fc.s3tc.ctex"
+
+[resource]
+resource_name = "aura"
+transparency = 1
+albedo_texture = SubResource("CompressedTexture2D_i6dfh")
+roughness = 0.0
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("1_3paqm")
+backlight = Color(1, 1, 1, 1)
+disable_receive_shadows = true
+billboard_mode = 2
+billboard_keep_scale = true

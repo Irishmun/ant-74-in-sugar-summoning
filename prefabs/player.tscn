@@ -1,13 +1,21 @@
-[gd_scene load_steps=21 format=3 uid="uid://dlkv0vdobu40k"]
+[gd_scene load_steps=30 format=3 uid="uid://dlkv0vdobu40k"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_4f4xc"]
 [ext_resource type="PackedScene" uid="uid://choagn3ex2tg8" path="res://models/ant/Antstronaut.glb" id="1_oyyv7"]
-[ext_resource type="AudioStream" uid="uid://bgu4v5yc36pj7" path="res://audio/player/pl_step1.wav" id="3_a6chq"]
 [ext_resource type="Texture2D" uid="uid://bnyx3kisbphwg" path="res://sprites/shadow.png" id="3_bsfyh"]
-[ext_resource type="AudioStream" uid="uid://c1ec8ix6xjpri" path="res://audio/player/pl_step2.wav" id="4_hn0f3"]
-[ext_resource type="AudioStream" uid="uid://dtbgaio6f1h07" path="res://audio/player/pl_step3.wav" id="5_g5rov"]
-[ext_resource type="AudioStream" uid="uid://ceeqxm15psvkt" path="res://audio/player/pl_step4.wav" id="6_p14f1"]
+[ext_resource type="AudioStream" uid="uid://bc1uya8d6diwy" path="res://audio/player/step/dirt1.wav" id="4_m24uy"]
+[ext_resource type="AudioStream" uid="uid://cqaq2imtw520y" path="res://audio/player/step/dirt2.wav" id="5_t483j"]
+[ext_resource type="AudioStream" uid="uid://c1ptxqdy0fw0c" path="res://audio/player/step/dirt3.wav" id="6_62tdk"]
 [ext_resource type="Script" path="res://scripts/player/CoinStack.cs" id="7_0kqoy"]
+[ext_resource type="AudioStream" uid="uid://bwj00w6u4ok2d" path="res://audio/player/step/dirt4.wav" id="7_v46k5"]
+[ext_resource type="AudioStream" uid="uid://vqbyin4tl0a1" path="res://audio/player/step/grass1.wav" id="8_grkwx"]
+[ext_resource type="AudioStream" uid="uid://dc2bi1ep7idom" path="res://audio/player/pickup/poh.wav" id="8_pesll"]
+[ext_resource type="AudioStream" uid="uid://djr6d8cf2ney0" path="res://audio/player/step/grass2.wav" id="9_d6fgh"]
+[ext_resource type="AudioStream" uid="uid://k2kkkfxagq60" path="res://audio/player/pickup/poh_2.wav" id="9_pvqup"]
+[ext_resource type="AudioStream" uid="uid://cosqa7w7p36ci" path="res://audio/player/pickup/poh_3.wav" id="10_a200d"]
+[ext_resource type="AudioStream" uid="uid://b6hy6hcyvykur" path="res://audio/player/step/grass3.wav" id="10_mx6b1"]
+[ext_resource type="AudioStream" uid="uid://cyxcbl1k2b423" path="res://audio/player/pickup/poh_4.wav" id="11_kvytj"]
+[ext_resource type="AudioStream" uid="uid://dvg5vlvtkg7sg" path="res://audio/player/step/grass4.wav" id="11_ldk17"]
 
 [sub_resource type="Animation" id="Animation_pgeoj"]
 length = 0.001
@@ -3057,7 +3065,7 @@ tracks/93/keys = PackedFloat32Array(0, 1, 0, 0.352212, -0.0195208)
 tracks/94/type = "method"
 tracks/94/imported = false
 tracks/94/enabled = true
-tracks/94/path = NodePath("../AudioStreamPlayer3D")
+tracks/94/path = NodePath("../WalkStream")
 tracks/94/interp = 1
 tracks/94/loop_wrap = true
 tracks/94/keys = {
@@ -4216,7 +4224,7 @@ tracks/127/keys = PackedFloat32Array(0, 1, 0, 0.352212, -0.0195208)
 tracks/128/type = "method"
 tracks/128/imported = false
 tracks/128/enabled = true
-tracks/128/path = NodePath("../AudioStreamPlayer3D")
+tracks/128/path = NodePath("../WalkStream")
 tracks/128/interp = 1
 tracks/128/loop_wrap = true
 tracks/128/keys = {
@@ -4240,7 +4248,7 @@ _data = {
 }
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_4rkbg"]
-length = 0.302782
+length = 0.303
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ybo52"]
 height = 0.8
@@ -4249,20 +4257,40 @@ radius = 0.25
 [sub_resource type="SphereShape3D" id="SphereShape3D_ouop7"]
 radius = 0.07
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h7yxx"]
-streams_count = 4
-stream_0/stream = ExtResource("3_a6chq")
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_pi52k"]
+streams_count = 8
+stream_0/stream = ExtResource("4_m24uy")
 stream_0/weight = 1.0
-stream_1/stream = ExtResource("4_hn0f3")
+stream_1/stream = ExtResource("5_t483j")
 stream_1/weight = 1.0
-stream_2/stream = ExtResource("5_g5rov")
+stream_2/stream = ExtResource("6_62tdk")
 stream_2/weight = 1.0
-stream_3/stream = ExtResource("6_p14f1")
+stream_3/stream = ExtResource("7_v46k5")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("8_grkwx")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("9_d6fgh")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("10_mx6b1")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("11_ldk17")
+stream_7/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jqile"]
+playback_mode = 1
+streams_count = 4
+stream_0/stream = ExtResource("8_pesll")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("9_pvqup")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("10_a200d")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("11_kvytj")
 stream_3/weight = 1.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_h2cv3"]
 height = 0.7
-radius = 1.0
+radius = 0.8
 
 [node name="player" type="CharacterBody3D" node_paths=PackedStringArray("CamRoot", "Cam", "animator", "MeshRoot", "CoinStack", "FloorCast")]
 script = ExtResource("1_4f4xc")
@@ -4270,11 +4298,12 @@ CamRoot = NodePath("CamHorizontal")
 Cam = NodePath("CamHorizontal/CamVertical")
 animator = NodePath("Antstronaut/AnimationPlayer")
 MeshRoot = NodePath("Antstronaut")
-CoinStack = NodePath("Area3D")
+CoinStack = NodePath("Pickup Area")
 FloorCast = NodePath("RayCast3D")
 MovementSpeed = 0.75
 RotationSpeed = 10.0
 RunMultiplier = 4.0
+ControllerMultiplier = 10.0
 LookSensitivity = 0.5
 MaxVerticalLook = Vector2(-75, 55)
 
@@ -4480,7 +4509,7 @@ gi_mode = 0
 modulate = Color(1, 1, 1, 0.901961)
 texture = ExtResource("3_bsfyh")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="SeparationShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.302954, -8.74228e-09)
 shape = SubResource("SeparationRayShape3D_4rkbg")
 
@@ -4498,17 +4527,24 @@ spring_length = 1.25
 [node name="Camera3D" type="Camera3D" parent="CamHorizontal/CamVertical"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.25)
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0313003, 0)
-stream = SubResource("AudioStreamRandomizer_h7yxx")
+stream = SubResource("AudioStreamRandomizer_pi52k")
+bus = &"Player"
 
-[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("Stack")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+[node name="PickupStream" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.671118, 0.0896448)
+stream = SubResource("AudioStreamRandomizer_jqile")
+bus = &"Player"
+
+[node name="Pickup Area" type="Area3D" parent="." node_paths=PackedStringArray("Stack", "PickupStream")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.19116)
 script = ExtResource("7_0kqoy")
 Stack = NodePath("../Antstronaut/Money")
+PickupStream = NodePath("../PickupStream")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0933201, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickup Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0933201, 0.0119475)
 shape = SubResource("CylinderShape3D_h2cv3")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]

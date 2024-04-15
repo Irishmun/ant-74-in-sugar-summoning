@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhqx7jkhhgydu"]
+
+[ext_resource type="Script" path="res://scripts/UI/MainMenu.cs" id="1_1unus"]
+[ext_resource type="Texture2D" uid="uid://dr76t54i5ltka" path="res://textures/main menu/design.png" id="1_4cf2s"]
+[ext_resource type="FontFile" uid="uid://dbref88chqpuh" path="res://fonts/VCR_OSD_MONO_1.001.ttf" id="3_1jyiv"]
+
+[node name="D0Mainmenu" type="Control" node_paths=PackedStringArray("StartButton", "SettingsButton", "OptionsMenu", "MenuButtons", "QuitButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_1unus")
+StartButton = NodePath("menu items/StartButton")
+SettingsButton = NodePath("menu items/OptionsButton")
+OptionsMenu = NodePath("Options menu")
+MenuButtons = NodePath("menu items")
+QuitButton = NodePath("menu items/QuitButton")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4cf2s")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="menu items" type="Control" parent="."]
+layout_mode = 1
+anchor_top = 0.495
+anchor_right = 0.428
+anchor_bottom = 1.0
+offset_top = 0.23999
+offset_right = -0.0560303
+grow_vertical = 0
+
+[node name="StartButton" type="Button" parent="menu items"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 47.0
+offset_right = 231.0
+offset_bottom = 78.0
+theme_override_fonts/font = ExtResource("3_1jyiv")
+theme_override_font_sizes/font_size = 24
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="menu items"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 87.0
+offset_right = 231.0
+offset_bottom = 119.0
+theme_override_fonts/font = ExtResource("3_1jyiv")
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="menu items"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 271.0
+offset_right = 231.0
+offset_bottom = 302.0
+theme_override_fonts/font = ExtResource("3_1jyiv")
+theme_override_font_sizes/font_size = 24
+text = "Quit"
+
+[node name="Options menu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

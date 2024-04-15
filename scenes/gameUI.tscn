@@ -1,17 +1,108 @@
-[gd_scene load_steps=5 format=3 uid="uid://vhe76y1cwq50"]
+[gd_scene load_steps=20 format=3 uid="uid://vhe76y1cwq50"]
 
-[ext_resource type="Texture2D" uid="uid://d0mb7qgcusemc" path="res://sprites/dialog.png" id="1_6xbmq"]
+[ext_resource type="Script" path="res://scripts/UI/DialogUI.cs" id="1_fubb8"]
+[ext_resource type="Texture2D" uid="uid://bnlh0jiig6p1u" path="res://sprites/dialog/spr_dialogbox.png" id="1_r1qab"]
+[ext_resource type="Script" path="res://scripts/UI/HudUI.cs" id="1_unqbk"]
+[ext_resource type="Texture2D" uid="uid://cb7f6qhaut4d5" path="res://sprites/spr_score.png" id="2_0kl8u"]
+[ext_resource type="Texture2D" uid="uid://ceebvrwn20x20" path="res://sprites/temp_win.png" id="2_6oyta"]
+[ext_resource type="Texture2D" uid="uid://bpyp1me406ord" path="res://sprites/dialog/spr_dialogartbox.png" id="2_pacio"]
+[ext_resource type="FontFile" uid="uid://dbref88chqpuh" path="res://fonts/VCR_OSD_MONO_1.001.ttf" id="3_8lsa4"]
+[ext_resource type="Texture2D" uid="uid://cxstdj2aj1yjx" path="res://sprites/dialog/ant_dialog.png" id="3_b40m0"]
+[ext_resource type="Script" path="res://scripts/UI/LoadingUI.cs" id="4_aveme"]
+[ext_resource type="Texture2D" uid="uid://blq5kmnorgviw" path="res://sprites/loading_img.png" id="5_21o0b"]
+[ext_resource type="Texture2D" uid="uid://do7wf0deyjdk1" path="res://sprites/dialog/spr_confirmdialog.png" id="5_jnudw"]
+[ext_resource type="Texture2D" uid="uid://ce7w2q4cdsh32" path="res://sprites/dialog/scanlines.png" id="9_7pgvt"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sa1ot"]
-atlas = ExtResource("1_6xbmq")
-region = Rect2(2, 2, 736, 188)
+[sub_resource type="LabelSettings" id="LabelSettings_wa1cr"]
+font = ExtResource("3_8lsa4")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1mcyh"]
-atlas = ExtResource("1_6xbmq")
-region = Rect2(556, 358, 128, 128)
+[sub_resource type="LabelSettings" id="LabelSettings_6etua"]
+font = ExtResource("3_8lsa4")
 
-[sub_resource type="LabelSettings" id="LabelSettings_w5kaw"]
-font_size = 24
+[sub_resource type="Animation" id="Animation_ic6qt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-72, -64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l0akt"]
+_data = {
+"RESET": SubResource("Animation_ic6qt")
+}
+
+[sub_resource type="Animation" id="Animation_seuki"]
+length = 0.6
+step = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"FinishHideDialog"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.25, 0.25),
+"update": 0,
+"values": [Vector2(-72, -64), Vector2(-72, 200)]
+}
+
+[sub_resource type="Animation" id="Animation_ns42l"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.25, 0.25),
+"update": 0,
+"values": [Vector2(-72, 200), Vector2(-72, -64)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"WriteDialog"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4dj6b"]
+_data = {
+"Hide": SubResource("Animation_seuki"),
+"Show": SubResource("Animation_ns42l")
+}
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -22,7 +113,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="hud" type="Control" parent="."]
+[node name="Non-main menu" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,72 +122,230 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="dialog" type="Control" parent="."]
-visible = false
+[node name="hud" type="Control" parent="Non-main menu" node_paths=PackedStringArray("scoreLabel", "WinImage")]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -151.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_unqbk")
+scoreLabel = NodePath("Background/CoinCount")
+WinImage = NodePath("TextureRect")
+
+[node name="Background" type="NinePatchRect" parent="Non-main menu/hud"]
+texture_filter = 1
+layout_mode = 1
+offset_left = 292.0
+offset_top = 152.0
+offset_right = 334.0
+offset_bottom = 173.0
+scale = Vector2(5, 5)
+pivot_offset = Vector2(73, 38)
+texture = ExtResource("2_0kl8u")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="CoinCount" type="Label" parent="Non-main menu/hud/Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.144
+anchor_top = 0.178
+anchor_right = 0.144
+anchor_bottom = 0.178
+offset_left = -1.048
+offset_top = 1.262
+offset_right = 158.952
+offset_bottom = 57.262
+scale = Vector2(0.2, 0.2)
+text = "Coins: 999
+Total Coins: 999
+Value: $99,99"
+label_settings = SubResource("LabelSettings_wa1cr")
+
+[node name="ColorRect2" type="ColorRect" parent="Non-main menu/hud"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -224.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 158.0
+grow_horizontal = 0
+color = Color(0, 0, 0, 0.45098)
+
+[node name="TempControls" type="Label" parent="Non-main menu/hud/ColorRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 4.0
+offset_right = -5.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Move: WASD/Left-Stick
+Look: Mouse/RightStick
+Pick up: E/X
+Drop: R/Y
+Run:Shift/L3
+
+Continue Dialog: E/X
+Quit: Escape/Start"
+label_settings = SubResource("LabelSettings_6etua")
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Non-main menu/hud"]
+visible = false
+z_index = 1024
+z_as_relative = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6oyta")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="dialog" type="Control" parent="Non-main menu" node_paths=PackedStringArray("TextParent", "TextNode", "Animator", "FinishedIndicator")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
+script = ExtResource("1_fubb8")
+TypeSpeed = 0.1
+TimeBeforeHide = 10.0
+DialogFile = "res://text/en_us.json"
+TextParent = NodePath("Background")
+TextNode = NodePath("Background/dialog")
+Animator = NodePath("AnimationPlayer")
+ShowName = "Dialog/Show"
+HideName = "Dialog/Hide"
+FinishedIndicator = NodePath("Background/finishedDialog")
 
-[node name="Background" type="TextureRect" parent="dialog"]
+[node name="Background" type="NinePatchRect" parent="Non-main menu/dialog"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -368.0
-offset_top = -203.0
-offset_right = 368.0
-offset_bottom = -15.0
+offset_left = -72.0
+offset_top = -64.0
+offset_right = 74.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = SubResource("AtlasTexture_sa1ot")
+scale = Vector2(5, 5)
+pivot_offset = Vector2(73, 38)
+texture = ExtResource("1_r1qab")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
 
-[node name="icon" type="TextureRect" parent="dialog/Background"]
+[node name="Background2" type="NinePatchRect" parent="Non-main menu/dialog/Background"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -338.0
-offset_top = -132.0
-offset_right = -210.0
-offset_bottom = -4.0
+offset_left = -73.0
+offset_top = -38.0
+offset_right = -35.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = SubResource("AtlasTexture_1mcyh")
+texture = ExtResource("2_pacio")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
 
-[node name="Label" type="Label" parent="dialog/Background"]
-layout_mode = 1
-offset_left = 16.0
-offset_top = 21.0
-offset_right = 224.0
-offset_bottom = 55.0
-text = "Ant #18"
-label_settings = SubResource("LabelSettings_w5kaw")
-horizontal_alignment = 1
-
-[node name="RichTextLabel" type="RichTextLabel" parent="dialog/Background"]
+[node name="icon" type="TextureRect" parent="Non-main menu/dialog/Background/Background2"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.232
-anchor_top = 0.341
-anchor_right = 0.959
-anchor_bottom = 0.964
+anchor_left = 0.082
+anchor_top = 0.084
+anchor_right = 0.892
+anchor_bottom = 0.892
+offset_left = 0.884
+offset_top = 0.808
+offset_right = 270.104
+offset_bottom = 270.104
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_b40m0")
+
+[node name="dialog" type="RichTextLabel" parent="Non-main menu/dialog/Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.26
+anchor_top = 0.105
+anchor_right = 0.973
+anchor_bottom = 0.895
+offset_left = 1.04
+offset_top = 0.00999975
+offset_right = 412.942
+offset_bottom = 119.99
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 20
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/normal_font = ExtResource("3_8lsa4")
+theme_override_font_sizes/normal_font_size = 26
 text = "Your job is to acquire several of these discs, place them next to the sign that worker #35 and #46 have set up to summon one of these giants and make a trade for the crystals."
 visible_characters_behavior = 1
 
-[node name="pauseMenu" type="Control" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Non-main menu/dialog/Background"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 4.0
+offset_right = 142.0
+offset_bottom = 34.0
+texture = ExtResource("9_7pgvt")
+expand_mode = 2
+
+[node name="finishedDialog" type="TextureRect" parent="Non-main menu/dialog/Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.904
+anchor_top = 1.0
+anchor_right = 0.959
+anchor_bottom = 1.0
+offset_left = 0.0159912
+offset_top = -6.0
+offset_right = -0.0140076
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("5_jnudw")
+stretch_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Non-main menu/dialog"]
+libraries = {
+"": SubResource("AnimationLibrary_l0akt"),
+"Dialog": SubResource("AnimationLibrary_4dj6b")
+}
+
+[node name="pauseMenu" type="Control" parent="Non-main menu"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -105,3 +354,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="Loading" type="Control" parent="." node_paths=PackedStringArray("_loadingImage")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("4_aveme")
+_loadingImage = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="Loading"]
+z_index = 4000
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("5_21o0b")
