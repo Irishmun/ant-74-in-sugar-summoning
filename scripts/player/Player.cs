@@ -82,13 +82,13 @@ public partial class Player : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         bool onFloor = IsOnFloor();
-        if (_mayDoStuff == false)
-        { return; }
-        _speed = _isRunning == true ? MovementSpeed * RunMultiplier : MovementSpeed;
+        if (_mayDoStuff == true)
+        {
+            _speed = _isRunning == true ? MovementSpeed * RunMultiplier : MovementSpeed;
 
-        _direction = new Vector3(_inputDir.X, 0, _inputDir.Y).Normalized();
-        _direction = _direction.Rotated(Vector3.Up, CamRoot.GlobalRotation.Y);
-
+            _direction = new Vector3(_inputDir.X, 0, _inputDir.Y).Normalized();
+            _direction = _direction.Rotated(Vector3.Up, CamRoot.GlobalRotation.Y);
+        }
         _velocity = new Vector3(_speed * _direction.X, 0, _speed * _direction.Z);
 
         if (!onFloor)

@@ -7,6 +7,7 @@ public partial class CoinObjective : Area3D
     [Export] private Player player;
     [Export] private int CoinWinCount = 3;
     [Export] private int WinValue = 400;//cents
+    [Export] private string WinScene = "d1_awakeningwood_02";
 
     private List<Coin> _coins = new List<Coin>();
     private HudUI _hud;
@@ -74,9 +75,13 @@ public partial class CoinObjective : Area3D
     {
         if (_value >= WinValue || _coins.Count >= CoinWinCount)
         {
-            GD.Print("You Win!");
+            GameTimer.Instance.StopTimer();
+            GD.PrintRich("[rainbow][wave]You Win![/wave][/rainbow]");
+            GD.Print($"final time: {GameTimer.Instance.Time}({GameTimer.Instance.RawTime})");
             player.MayDoStuff = false;
-            _hud.ShowWin();
+            SceneFade fade = GetNode<SceneFade>(SceneFade.SCENE_FADE_TREE);
+            fade.SceneName = WinScene;
+            fade.FadeToScene();
         }
     }
 }

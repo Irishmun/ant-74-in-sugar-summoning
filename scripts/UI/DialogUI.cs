@@ -44,13 +44,19 @@ public partial class DialogUI : Node
         }
 
         //_signalBus.DisplayDialog += DisplayDialogUI;
+        Init();
+    }
 
+    public void Init()
+    {
+        GD.Print("Init dialog");
         LoadTextFile();
         TextParent.Visible = false;
         TextNode.Text = string.Empty;
         TextNode.Visible = false;
         FinishedIndicator.Visible = false;
     }
+
     public override void _Process(double delta)
     {
         if (_displayingText == true)
@@ -124,6 +130,7 @@ public partial class DialogUI : Node
         if (_lines.Count == 0)
         {
             HideDialog();
+            return;
         }
         _currentText = (string)_lines.Dequeue();
         _maxTextCharacters = _currentText.Length;

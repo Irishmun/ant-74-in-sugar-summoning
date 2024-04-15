@@ -12,14 +12,14 @@ public partial class MainMenu : Control
     [ExportGroup("Quit")]
     [Export] private Button QuitButton;
 
-    private SceneChangeUtil _sceneChange;
+    private SceneFade _sceneChange;
     private const string GameUINonMenuNode = "/root/GameUI/Non-main menu";
 
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _sceneChange = GetNode<SceneChangeUtil>(SceneChangeUtil.SCENE_CHANGE_NODE_TREE);
+        _sceneChange = GetNode<SceneFade>(SceneFade.SCENE_FADE_TREE);
         OptionsMenu.Visible = false;
         MenuButtons.Visible = true;
 
@@ -34,7 +34,8 @@ public partial class MainMenu : Control
     {
         GD.Print("Starting game");
         GetNode(GameUINonMenuNode).ProcessMode = ProcessModeEnum.Inherit;
-        ChangeScene(StartScene);
+        _sceneChange.SceneName = StartScene;
+        _sceneChange.FadeToScene();
     }
     private void SettingsButton_Pressed()
     {
@@ -42,15 +43,9 @@ public partial class MainMenu : Control
     }
     private void QuitButton_Pressed()
     {
+        GD.Print("Quitting...");
         GetTree().Quit();
-        return;
     }
     #endregion
-    protected void ChangeScene(string SceneName)
-    {
-        GD.Print("Scene name: " + SceneName);
-        if (string.IsNullOrWhiteSpace(SceneName) == true)
-        { return; }
-        _sceneChange.ChangeSceneNextFrame(SceneName);
-    }
+    
 }

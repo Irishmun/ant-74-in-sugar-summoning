@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://vhe76y1cwq50"]
+[gd_scene load_steps=29 format=3 uid="uid://vhe76y1cwq50"]
 
 [ext_resource type="Script" path="res://scripts/UI/DialogUI.cs" id="1_fubb8"]
 [ext_resource type="Texture2D" uid="uid://bnlh0jiig6p1u" path="res://sprites/dialog/spr_dialogbox.png" id="1_r1qab"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://blq5kmnorgviw" path="res://sprites/loading_img.png" id="5_21o0b"]
 [ext_resource type="Texture2D" uid="uid://do7wf0deyjdk1" path="res://sprites/dialog/spr_confirmdialog.png" id="5_jnudw"]
 [ext_resource type="Texture2D" uid="uid://ce7w2q4cdsh32" path="res://sprites/dialog/scanlines.png" id="9_7pgvt"]
+[ext_resource type="Theme" uid="uid://dq6avs53fruwb" path="res://new_theme.tres" id="11_8lrak"]
+[ext_resource type="Script" path="res://scenes/pauseMenu.cs" id="12_u0ynp"]
+[ext_resource type="Script" path="res://scripts/UI/SceneFade.cs" id="13_cv5bj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wa1cr"]
 font = ExtResource("3_8lsa4")
@@ -104,6 +107,92 @@ _data = {
 "Show": SubResource("Animation_ns42l")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_hy3ao"]
+font_size = 32
+
+[sub_resource type="Animation" id="Animation_7eosc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ljsw"]
+_data = {
+"RESET": SubResource("Animation_7eosc")
+}
+
+[sub_resource type="Animation" id="Animation_nf1kq"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"SetFadingFalse"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_oygur"]
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"ChangeToScene"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fe482"]
+_data = {
+"FadeFromBlack": SubResource("Animation_nf1kq"),
+"FadeToBlack": SubResource("Animation_oygur")
+}
+
 [node name="GameUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -162,6 +251,7 @@ offset_top = 1.262
 offset_right = 158.952
 offset_bottom = 57.262
 scale = Vector2(0.2, 0.2)
+theme = ExtResource("11_8lrak")
 text = "Coins: 999
 Total Coins: 999
 Value: $99,99"
@@ -181,15 +271,15 @@ color = Color(0, 0, 0, 0.45098)
 
 [node name="TempControls" type="Label" parent="Non-main menu/hud/ColorRect2"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
+offset_left = -211.0
 offset_top = 4.0
-offset_right = -5.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = -4.0
+offset_bottom = 145.0
+grow_horizontal = 0
+theme = ExtResource("11_8lrak")
 text = "Move: WASD/Left-Stick
 Look: Mouse/RightStick
 Pick up: E/X
@@ -197,9 +287,10 @@ Drop: R/Y
 Run:Shift/L3
 
 Continue Dialog: E/X
-Quit: Escape/Start"
+Pause: Escape/Start"
 label_settings = SubResource("LabelSettings_6etua")
 horizontal_alignment = 2
+autowrap_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Non-main menu/hud"]
 visible = false
@@ -227,7 +318,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("1_fubb8")
-TypeSpeed = 0.1
+TypeSpeed = 0.5
 TimeBeforeHide = 10.0
 DialogFile = "res://text/en_us.json"
 TextParent = NodePath("Background")
@@ -310,6 +401,7 @@ offset_bottom = 119.99
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
+theme = ExtResource("11_8lrak")
 theme_override_fonts/normal_font = ExtResource("3_8lsa4")
 theme_override_font_sizes/normal_font_size = 26
 text = "Your job is to acquire several of these discs, place them next to the sign that worker #35 and #46 have set up to summon one of these giants and make a trade for the crystals."
@@ -345,15 +437,156 @@ libraries = {
 "Dialog": SubResource("AnimationLibrary_4dj6b")
 }
 
-[node name="pauseMenu" type="Control" parent="Non-main menu"]
-visible = false
+[node name="pauseMenu" type="Control" parent="Non-main menu" node_paths=PackedStringArray("ResumeButton", "OptionsButton", "QuitButton")]
+z_index = 2048
+z_as_relative = false
+custom_minimum_size = Vector2(256, 256)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
+script = ExtResource("12_u0ynp")
+ResumeButton = NodePath("MainPause/VBoxContainer/ResumeButton")
+OptionsButton = NodePath("MainPause/VBoxContainer/OptionsButton")
+QuitButton = NodePath("MainPause/VBoxContainer/QuitButton")
+
+[node name="ColorRect" type="ColorRect" parent="Non-main menu/pauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.52549)
+
+[node name="MainPause" type="NinePatchRect" parent="Non-main menu/pauseMenu"]
+process_mode = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+pivot_offset = Vector2(25, 25)
+texture = ExtResource("1_r1qab")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="Label" type="Label" parent="Non-main menu/pauseMenu/MainPause"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.08
+anchor_right = 1.0
+anchor_bottom = 0.08
+offset_right = 200.0
+offset_bottom = 29.0
+grow_horizontal = 2
+scale = Vector2(0.2, 0.2)
+theme = ExtResource("11_8lrak")
+text = "Paused"
+label_settings = SubResource("LabelSettings_hy3ao")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Non-main menu/pauseMenu/MainPause"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.061
+anchor_top = 0.061
+anchor_right = 0.919
+anchor_bottom = 0.919
+offset_left = 1.95
+offset_top = 1.95
+offset_right = 154.05
+offset_bottom = 159.05
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Non-main menu/pauseMenu/MainPause/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_8lrak")
+text = "Resume"
+
+[node name="OptionsButton" type="Button" parent="Non-main menu/pauseMenu/MainPause/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_8lrak")
+disabled = true
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="Non-main menu/pauseMenu/MainPause/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_8lrak")
+text = "Quit"
+
+[node name="OptionsPause" type="NinePatchRect" parent="Non-main menu/pauseMenu"]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+pivot_offset = Vector2(25, 25)
+texture = ExtResource("1_r1qab")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Non-main menu/pauseMenu/OptionsPause"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.061
+anchor_top = 0.061
+anchor_right = 0.919
+anchor_bottom = 0.919
+offset_left = 1.95
+offset_top = 1.95
+offset_right = 154.05
+offset_bottom = 159.05
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Non-main menu/pauseMenu/OptionsPause/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_8lrak")
+text = "Resume"
+
+[node name="OptionsButton" type="Button" parent="Non-main menu/pauseMenu/OptionsPause/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_8lrak")
+text = "Resume"
+
+[node name="QuitButton2" type="Button" parent="Non-main menu/pauseMenu/OptionsPause/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_8lrak")
+text = "Resume"
 
 [node name="Loading" type="Control" parent="." node_paths=PackedStringArray("_loadingImage")]
 layout_mode = 1
@@ -366,6 +599,7 @@ offset_left = -40.0
 offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 script = ExtResource("4_aveme")
 _loadingImage = NodePath("TextureRect")
 
@@ -383,3 +617,32 @@ offset_top = -64.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("5_21o0b")
+
+[node name="ScreenFade" type="Control" parent="." node_paths=PackedStringArray("animator")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("13_cv5bj")
+animator = NodePath("AnimationPlayer")
+
+[node name="ColorRect" type="ColorRect" parent="ScreenFade"]
+z_index = 1024
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenFade"]
+libraries = {
+"": SubResource("AnimationLibrary_3ljsw"),
+"Load": SubResource("AnimationLibrary_fe482")
+}

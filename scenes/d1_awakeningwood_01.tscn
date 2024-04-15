@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://1w67tk2w6k1f"]
+[gd_scene load_steps=22 format=3 uid="uid://1w67tk2w6k1f"]
 
 [ext_resource type="Script" path="res://scripts/debug/dev_DialogTest.cs" id="1_fqp00"]
 [ext_resource type="Texture2D" uid="uid://c55m78dlln5v2" path="res://textures/hdris/meadow_2_2k.exr" id="1_queea"]
@@ -38,6 +38,24 @@ size = Vector3(0.849341, 8.51071, 0.2)
 height = 5.0
 radius = 3.125
 
+[sub_resource type="Animation" id="Animation_v21bm"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ijreu"]
+_data = {
+"RESET": SubResource("Animation_v21bm")
+}
+
+[sub_resource type="Animation" id="Animation_e0lqp"]
+
+[sub_resource type="Animation" id="Animation_83lsm"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gowqa"]
+_data = {
+"lose": SubResource("Animation_e0lqp"),
+"win": SubResource("Animation_83lsm")
+}
+
 [node name="D1Awakeningwood01" type="Node3D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_fqp00")
 player = NodePath("player")
@@ -64,6 +82,7 @@ autoplay = true
 
 [node name="player" parent="." instance=ExtResource("3_16aoi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91944, 0.632842, -3.72641)
+MovementSpeed = 1.5
 RunMultiplier = 2.0
 
 [node name="Coins" type="Node" parent="."]
@@ -137,6 +156,7 @@ transform = Transform3D(0.823582, -0.567197, 0, 0.567197, 0.823582, 0, 0, 0, 1, 
 transform = Transform3D(-0.707106, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707106, 5.84705, 0.6, 0.25567)
 
 [node name="tradedeal" parent="Goals/StaticBody3D" instance=ExtResource("7_6m8ab")]
+transform = Transform3D(0.951648, 0, 0.307191, 0, 1, 0, -0.307191, 0, 0.951648, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Goals/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0246704, 4.25536, 0)
@@ -155,3 +175,9 @@ WinValue = 20000
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Goals/Objective"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32932, 0)
 shape = SubResource("CylinderShape3D_4praa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Goals/Objective"]
+libraries = {
+"": SubResource("AnimationLibrary_ijreu"),
+"Win": SubResource("AnimationLibrary_gowqa")
+}

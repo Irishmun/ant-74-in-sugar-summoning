@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class HudUI : Node
+public partial class HudUI : Control
 {
     public static string HUD_UI_TREE = "/root/GameUI/Non-main menu/hud";
 

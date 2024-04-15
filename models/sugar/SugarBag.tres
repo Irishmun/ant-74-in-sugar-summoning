@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cwtc58j5pewkp"]
+
+[ext_resource type="Texture2D" uid="uid://d2l6o1nmdyumc" path="res://models/sugar/sugar_SugarBag_baseColor.jpg" id="1_sogwu"]
+[ext_resource type="Texture2D" uid="uid://cpw0w0x7pcb32" path="res://models/sugar/sugar_SugarBag_metallicRoughness.png" id="2_jvcr5"]
+
+[resource]
+resource_name = "SugarBag"
+cull_mode = 2
+albedo_texture = ExtResource("1_sogwu")
+metallic_texture = ExtResource("2_jvcr5")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_jvcr5")
+roughness_texture_channel = 1

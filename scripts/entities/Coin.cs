@@ -12,7 +12,7 @@ public partial class Coin : RigidBody3D
     {
         CylinderShape3D cyl = GetChild<CollisionShape3D>(1).Shape as CylinderShape3D;
         _height = cyl.Height;
-        GD.Print($"{CoinName} has height of: {_height}");
+        //GD.Print($"{CoinName} has height of: {_height}");
         this.BodyEntered += Coin_BodyEntered;
     }
 
