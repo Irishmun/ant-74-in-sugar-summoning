@@ -21,10 +21,5 @@ public partial class Coin : RigidBody3D
         audio.Play();
     }
 
-    public void StackOnCoin(Coin parentCoin)
-    {
-        Position = new Vector3(0, parentCoin.Height, 0);
-    }
-
     public float Height => _height;
 }

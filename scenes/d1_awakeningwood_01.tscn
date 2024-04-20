@@ -82,8 +82,6 @@ autoplay = true
 
 [node name="player" parent="." instance=ExtResource("3_16aoi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91944, 0.632842, -3.72641)
-MovementSpeed = 1.5
-RunMultiplier = 2.0
 
 [node name="Coins" type="Node" parent="."]
 

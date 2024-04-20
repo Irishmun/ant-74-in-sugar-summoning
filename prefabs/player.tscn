@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dlkv0vdobu40k"]
+[gd_scene load_steps=31 format=3 uid="uid://dlkv0vdobu40k"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_4f4xc"]
 [ext_resource type="PackedScene" uid="uid://choagn3ex2tg8" path="res://models/ant/Antstronaut.glb" id="1_oyyv7"]
@@ -4292,6 +4292,10 @@ stream_3/weight = 1.0
 height = 0.7
 radius = 0.8
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_43e7j"]
+height = 1.0
+radius = 0.513
+
 [node name="player" type="CharacterBody3D" node_paths=PackedStringArray("CamRoot", "Cam", "animator", "MeshRoot", "CoinStack", "FloorCast")]
 script = ExtResource("1_4f4xc")
 CamRoot = NodePath("CamHorizontal")
@@ -4300,12 +4304,9 @@ animator = NodePath("Antstronaut/AnimationPlayer")
 MeshRoot = NodePath("Antstronaut")
 CoinStack = NodePath("Pickup Area")
 FloorCast = NodePath("RayCast3D")
-MovementSpeed = 0.75
 RotationSpeed = 10.0
-RunMultiplier = 4.0
 ControllerMultiplier = 10.0
 LookSensitivity = 0.5
-MaxVerticalLook = Vector2(-75, 55)
 
 [node name="Antstronaut" parent="." instance=ExtResource("1_oyyv7")]
 
@@ -4537,11 +4538,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.671118, 0.0896448)
 stream = SubResource("AudioStreamRandomizer_jqile")
 bus = &"Player"
 
-[node name="Pickup Area" type="Area3D" parent="." node_paths=PackedStringArray("Stack", "PickupStream")]
+[node name="Pickup Area" type="Area3D" parent="." node_paths=PackedStringArray("Stack", "PickupStream", "StackCollider")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.19116)
 script = ExtResource("7_0kqoy")
 Stack = NodePath("../Antstronaut/Money")
 PickupStream = NodePath("../PickupStream")
+StackCollider = NodePath("../StackCollider")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pickup Area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0933201, 0.0119475)
@@ -4550,5 +4552,9 @@ shape = SubResource("CylinderShape3D_h2cv3")
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.098468, 0)
 target_position = Vector3(0, -0.125, 0)
+
+[node name="StackCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.771, 0)
+shape = SubResource("CylinderShape3D_43e7j")
 
 [editable path="Antstronaut"]

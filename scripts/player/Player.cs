@@ -1,24 +1,29 @@
 using Godot;
-using System;
 
 public partial class Player : CharacterBody3D
 {
     [ExportGroup("Nodes")]
-    [Export] private Node3D CamRoot, Cam;
+    [Export] private Node3D CamRoot;
+    [Export] private SpringArm3D Cam;
     [Export] private AnimationPlayer animator;
     [Export] private Node3D MeshRoot;
     [Export] private CoinStack CoinStack;
     [Export] private RayCast3D FloorCast;
     [ExportGroup("Movement")]
-    [Export] private float MovementSpeed = 1, RotationSpeed = 1;
-    [Export] private float RunMultiplier = 2;
+    [Export] private float MovementSpeed = 1.5f, RotationSpeed = 1, WalkSpeed = .75f;
+    [Export] private float SprintMultiplier = 2;
     [Export] private float DistanceBeforeFall = 0.126f;
     [Export] private float Mass = 10;
     [ExportGroup("Camera")]
     [Export] private float ControllerDeadZone = 0.1f;
     [Export] private float ControllerMultiplier = 30f;
     [Export] private float LookSensitivity = 1f;
-    [Export] private Vector2 MaxVerticalLook = new Vector2(-45, 20);//X is down, Y is up
+    [Export] private float MaxLookDown = -75;
+    [Export] private float MaxLookUp = 55;
+    [ExportGroup("Camera/Zooming")]
+    [Export] private float MinZoomDistance = 0.5f;
+    [Export] private float MaxZoomDistance = 5f;
+    [Export] private float ZoomStrength = 0.1f;
 
 
 
@@ -30,15 +35,19 @@ public partial class Player : CharacterBody3D
     private Vector3 _direction;
     private Vector3 _velocity;
     private float _acceleration = 1, _speed;
+    private float _currentMovementSpeed = 0;
     private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     private float _lastFallingSpeed;
     private bool _mayDoStuff = true;
+    private float _currentZoom;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
         CoinStack.Player = this;
+        _currentZoom = Cam.SpringLength;
+        _currentMovementSpeed = MovementSpeed;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,7 +62,7 @@ public partial class Player : CharacterBody3D
 
         if (IsVisibleMovement() == true && _mayDoStuff == true)
         {
-            animator.SpeedScale = _isRunning == true ? RunMultiplier : 1;
+            animator.SpeedScale = _isRunning == true ? SprintMultiplier : 1;
             if (_isHoldingCoins == true)
             {
                 animator.Play("ant/walk_hold");
@@ -84,7 +93,7 @@ public partial class Player : CharacterBody3D
         bool onFloor = IsOnFloor();
         if (_mayDoStuff == true)
         {
-            _speed = _isRunning == true ? MovementSpeed * RunMultiplier : MovementSpeed;
+            _speed = _isRunning == true ? _currentMovementSpeed * SprintMultiplier : _currentMovementSpeed;
 
             _direction = new Vector3(_inputDir.X, 0, _inputDir.Y).Normalized();
             _direction = _direction.Rotated(Vector3.Up, CamRoot.GlobalRotation.Y);
@@ -128,6 +137,13 @@ public partial class Player : CharacterBody3D
     public override void _Input(InputEvent e)
     {
         _inputDir = Input.GetVector("Left", "Right", "Forward", "Backward");
+
+        if (e is InputEventMouseButton)
+        {
+            float scroll = Input.GetAxis("ZoomIn", "ZoomOut");
+            Cam.SpringLength = Mathf.Clamp(Cam.SpringLength + (scroll * ZoomStrength), MinZoomDistance, MaxZoomDistance);
+        }
+
     }
 
     public override void _UnhandledInput(InputEvent e)
@@ -163,12 +179,19 @@ public partial class Player : CharacterBody3D
         //RotateY //rotate node this script is attached to on the Y axis
         CamRoot.RotateY(Mathf.DegToRad(-_camMovement.X * LookSensitivity));
         Cam.RotateX(Mathf.DegToRad(-_camMovement.Y * LookSensitivity));
-        Cam.RotationDegrees = new Vector3(Mathf.Clamp(Cam.RotationDegrees.X, MaxVerticalLook.X, MaxVerticalLook.Y), Cam.RotationDegrees.Y, Cam.RotationDegrees.Z);
+        Cam.RotationDegrees = new Vector3(Mathf.Clamp(Cam.RotationDegrees.X, MaxLookDown, MaxLookUp), Cam.RotationDegrees.Y, Cam.RotationDegrees.Z);
 
+    }
+
+    public void ChangeMovementSpeed(float val)
+    {
+        _currentMovementSpeed = val;
     }
 
     private bool IsVisibleMovement() => Mathf.Abs(_inputDir.X) > 0 || Mathf.Abs(_inputDir.Y) > 0;
     public bool IsHoldingCoins { get => _isHoldingCoins; set => _isHoldingCoins = value; }
 
     public bool MayDoStuff { get => _mayDoStuff; set => _mayDoStuff = value; }
+    public float RunSpeedValue { get => MovementSpeed; set => MovementSpeed = value; }
+    public float WalkSpeedValue { get => WalkSpeed; set => WalkSpeed = value; }
 }

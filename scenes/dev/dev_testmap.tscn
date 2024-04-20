@@ -1,0 +1,184 @@
+[gd_scene load_steps=20 format=3 uid="uid://blw6aaeh8eaoj"]
+
+[ext_resource type="Texture2D" uid="uid://c55m78dlln5v2" path="res://textures/hdris/meadow_2_2k.exr" id="2_a6kca"]
+[ext_resource type="Material" uid="uid://b71u8qrpvjwqr" path="res://scenes/dev/dev_tex.tres" id="3_54noc"]
+[ext_resource type="AudioStream" uid="uid://rswjgv6hwbj6" path="res://audio/environment/ambience.ogg" id="5_v6o26"]
+[ext_resource type="PackedScene" uid="uid://dlkv0vdobu40k" path="res://prefabs/player.tscn" id="6_vhbwn"]
+[ext_resource type="PackedScene" uid="uid://34m4bpcuop4a" path="res://prefabs/ent_1euro.tscn" id="7_41dbc"]
+[ext_resource type="PackedScene" uid="uid://cuqj7c0ewhmkk" path="res://prefabs/ent_2euro.tscn" id="8_v7ofh"]
+[ext_resource type="PackedScene" uid="uid://ct1q23omoglug" path="res://models/trade sign/tradedeal.glb" id="9_qhc3c"]
+[ext_resource type="PackedScene" uid="uid://1lg4n13s61nm" path="res://models/aura/aura.glb" id="10_j64mn"]
+[ext_resource type="Script" path="res://scripts/CoinObjective.cs" id="11_1431n"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bgpty"]
+panorama = ExtResource("2_a6kca")
+
+[sub_resource type="Sky" id="Sky_5ijb4"]
+sky_material = SubResource("PanoramaSkyMaterial_bgpty")
+
+[sub_resource type="Environment" id="Environment_sp17v"]
+background_mode = 2
+sky = SubResource("Sky_5ijb4")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_exposure = 0.7
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_detail_spread = 0.615572
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1w5to"]
+size = Vector3(0.849341, 8.51071, 0.2)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4praa"]
+height = 5.0
+radius = 3.125
+
+[sub_resource type="Animation" id="Animation_v21bm"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ijreu"]
+_data = {
+"RESET": SubResource("Animation_v21bm")
+}
+
+[sub_resource type="Animation" id="Animation_e0lqp"]
+
+[sub_resource type="Animation" id="Animation_83lsm"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gowqa"]
+_data = {
+"lose": SubResource("Animation_e0lqp"),
+"win": SubResource("Animation_83lsm")
+}
+
+[node name="D1Awakeningwood01" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.848921, 0.198739, -0.489731, -0.00187588, 0.927735, 0.373234, 0.528517, -0.315928, 0.787946, 0, 4.29522, 0)
+light_color = Color(1, 0.937255, 0.792157, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sp17v")
+
+[node name="Terrain" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Terrain"]
+stream = ExtResource("5_v6o26")
+autoplay = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("3_54noc")
+use_collision = true
+size = Vector3(500, 1, 500)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1, 2, 6.5)
+material_override = ExtResource("3_54noc")
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="player" parent="." instance=ExtResource("6_vhbwn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.919, 0, -3.726)
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="ent_1euro" parent="Coins" instance=ExtResource("7_41dbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.71867, 0.434999, -1.03904)
+
+[node name="ent_2euro" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(0.982852, 0.184397, 0, -0.184397, 0.982852, 0, 0, 0, 1, -3.25328, 0.560167, -1.10333)
+
+[node name="ent_1euro2" parent="Coins" instance=ExtResource("7_41dbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.96817, 0.184441, -0.763215)
+
+[node name="ent_2euro2" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.18988, 0.637761, 1.68714)
+
+[node name="ent_1euro3" parent="Coins" instance=ExtResource("7_41dbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93023, 0.341642, 2.85236)
+
+[node name="ent_2euro3" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(0.482916, -0.61919, 0.61919, -2.98023e-08, -0.707107, -0.707107, 0.875667, 0.341473, -0.341473, -1.80617, 0.88071, 0.0283885)
+
+[node name="ent_2euro4" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.58864, 0.670244, 1.59838)
+
+[node name="ent_1euro4" parent="Coins" instance=ExtResource("7_41dbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.96032, 0.416258, -0.241297)
+
+[node name="ent_2euro5" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.7961, 0.433704, -0.969986)
+
+[node name="ent_2euro6" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.16583, 0.027251, 0.828)
+
+[node name="ent_2euro7" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.92244, 0.0272501, 0.56159)
+
+[node name="ent_1euro5" parent="Coins" instance=ExtResource("7_41dbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.52209, 0.027251, 2.68723)
+
+[node name="ent_1euro6" parent="Coins" instance=ExtResource("7_41dbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.04791, 0.027306, 0.900518)
+
+[node name="ent_2euro8" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.96187, 0.662304, 0.177037)
+
+[node name="ent_1euro7" parent="Coins" instance=ExtResource("7_41dbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.34736, 0.790103, 0.244263)
+
+[node name="ent_2euro9" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.53749, 0.660636, 2.45948)
+
+[node name="ent_1euro8" parent="Coins" instance=ExtResource("7_41dbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.502, 0.243201, 1.12484)
+
+[node name="ent_2euro10" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(0.692156, 0, 0.721748, 0, 1, 0, -0.721748, 0, 0.692156, -5.57355, 0.481396, -0.5509)
+
+[node name="ent_2euro11" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.50933, 0.803036, 1.82355)
+
+[node name="ent_2euro12" parent="Coins" instance=ExtResource("8_v7ofh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2995, 0.981027, 2.22292)
+
+[node name="ent_1euro9" parent="Coins" instance=ExtResource("7_41dbc")]
+transform = Transform3D(0.823582, -0.567197, 0, 0.567197, 0.823582, 0, 0, 0, 1, -2.33717, 0.81113, 0.414688)
+
+[node name="Goals" type="Node" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Goals"]
+transform = Transform3D(-0.258818, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258818, 19.913, 0, -2.298)
+
+[node name="tradedeal" parent="Goals/StaticBody3D" instance=ExtResource("9_qhc3c")]
+transform = Transform3D(0.951648, 0, 0.307191, 0, 1, 0, -0.307191, 0, 0.951648, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Goals/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0246704, 4.25536, 0)
+shape = SubResource("BoxShape3D_1w5to")
+
+[node name="aura" parent="Goals/StaticBody3D" instance=ExtResource("10_j64mn")]
+transform = Transform3D(-0.277616, 0, 0.531912, 0, 1, 0, -0.531912, 0, -0.277616, 0.636395, 0, 1.48492)
+
+[node name="Objective" type="Area3D" parent="Goals/StaticBody3D" node_paths=PackedStringArray("player")]
+transform = Transform3D(-0.866025, 0, 0.500001, 0, 1, 0, -0.500001, 0, -0.866025, 0.636395, 0, 1.48492)
+script = ExtResource("11_1431n")
+player = NodePath("../../../player")
+CoinWinCount = 1
+WinValue = 20000
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Goals/StaticBody3D/Objective"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32932, 0)
+shape = SubResource("CylinderShape3D_4praa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Goals/StaticBody3D/Objective"]
+libraries = {
+"": SubResource("AnimationLibrary_ijreu"),
+"Win": SubResource("AnimationLibrary_gowqa")
+}

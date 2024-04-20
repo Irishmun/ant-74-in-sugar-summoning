@@ -16,7 +16,7 @@ stream_0/weight = 1.0
 
 [node name="ent_2euro" type="RigidBody3D" node_paths=PackedStringArray("audio")]
 process_mode = 1
-mass = 7.5
+mass = 8.5
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("2_1jh8e")

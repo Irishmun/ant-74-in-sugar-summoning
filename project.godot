@@ -27,7 +27,6 @@ GameTimer="*res://scripts/GameTimer.cs"
 
 [display]
 
-window/size/mode=4
 window/stretch/mode="canvas_items"
 
 [dotnet]

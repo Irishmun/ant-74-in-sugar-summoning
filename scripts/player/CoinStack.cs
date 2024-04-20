@@ -5,29 +5,39 @@ public partial class CoinStack : Area3D
 {
     [Export] private Node3D Stack;
     [Export] private AudioStreamPlayer3D PickupStream;
+    [Export] float MaxCarryWeight = 75;// rigidbody mass
+    [Export] float MinCarryWeight = 20;//weight before penalty
+
+    [Export] private CollisionShape3D StackCollider;
 
     private List<Coin> _coins = new List<Coin>();
     private Player _player;
     private List<Coin> _coinsInArea = new List<Coin>();
     private HudUI _hud;
+    private float _stackWeight = 0, _stackHeight = 0, _startCollisionRadius = 0;
+    private Vector3 _localColliderStart;
 
     public override void _Ready()
     {
         this.BodyEntered += CoinStack_BodyEntered;
         this.BodyExited += CoinStack_BodyExited;
         _hud = GetNode<HudUI>(HudUI.HUD_UI_TREE);
+        _localColliderStart = StackCollider.Position;
+        _startCollisionRadius = (StackCollider.Shape as CylinderShape3D).Radius;
+        UpdateStackCollider();
     }
     public override void _ExitTree()
     {
         this.BodyEntered -= CoinStack_BodyEntered;
         this.BodyExited -= CoinStack_BodyExited;
     }
+    /*
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
         //move coins on stack
     }
-
+    */
     private void CoinStack_BodyEntered(Node3D body)
     {
         //GD.Print(body.Name + " entered");
@@ -70,6 +80,10 @@ public partial class CoinStack : Area3D
 
     public void AddCoinToStack(Coin coin)
     {
+        _stackWeight += coin.Mass;
+        _stackHeight += coin.Height;
+        UpdatePlayerSpeed();
+        UpdateStackCollider();
         if (_coins.Count == 0)
         {
             coin.ProcessMode = ProcessModeEnum.Disabled;
@@ -83,10 +97,9 @@ public partial class CoinStack : Area3D
         Coin last = _coins[_coins.Count - 1];
         coin.ProcessMode = ProcessModeEnum.Disabled;
         coin.Reparent(last, false);
-        coin.StackOnCoin(last);
+        coin.Position = new Vector3(0, last.Height, 0);
         coin.Rotation = Vector3.Zero;
         _coins.Add(coin);
-
     }
 
     public void RemoveTopCoinFromStack()
@@ -95,6 +108,10 @@ public partial class CoinStack : Area3D
         { return; }
         Coin coin = _coins[_coins.Count - 1];
         GD.Print("removing coin from stack of size " + _coins.Count);
+        _stackWeight -= coin.Mass;
+        _stackHeight -= coin.Height;
+        UpdatePlayerSpeed();
+        UpdateStackCollider();
         if (_coins.Count == 1)
         {
             coin.Reparent(GetTree().CurrentScene, true);
@@ -107,11 +124,12 @@ public partial class CoinStack : Area3D
             MakePlayerHoldCoins();
             return;
         }
+
+        //remove top coin from pile, returning it's parent to the scene
         coin.Reparent(GetTree().CurrentScene, true);
         coin.GlobalPosition += GetForward(coin);
         coin.ProcessMode = ProcessModeEnum.Pausable;
         _coins.Remove(coin);
-        //remove top coin from pile, returning it's parent to the scene
 
     }
 
@@ -121,7 +139,47 @@ public partial class CoinStack : Area3D
         _player.IsHoldingCoins = _coins.Count > 0;
     }
 
-    public Player Player { get => _player; set => _player = value; }
+    private void UpdatePlayerSpeed()
+    {
+        GD.Print("player carrying " + _stackWeight + "kg in coins");
+        float remapped = _player.RunSpeedValue;
+        if (_stackWeight < MinCarryWeight)//no need to calculate below threshold
+        {
+            remapped = _player.RunSpeedValue;
+        }
+        else if (_stackWeight > MaxCarryWeight)//no need to calculate beyond limit
+        {
+            remapped = _player.WalkSpeedValue;
+        }
+        else
+        {
+            //remap method
+            remapped = (_stackWeight - MinCarryWeight) / (MaxCarryWeight - MinCarryWeight) * (_player.WalkSpeedValue - _player.RunSpeedValue) + _player.RunSpeedValue;
+            remapped = Mathf.Clamp(remapped, _player.WalkSpeedValue, _player.RunSpeedValue);
+        }
+        GD.Print("setting player speed to: " + remapped);
+        _player.ChangeMovementSpeed(remapped);
+    }
+
+    private void UpdateStackCollider()
+    {
+        //TODO: add radius handling as well, for "widestradius"
+        //figure out how to have rigidbody collisions detected as well
+        //update collider height
+        CylinderShape3D stackShape = StackCollider.Shape as CylinderShape3D;
+        stackShape.Height = _stackHeight;
+        if (_stackHeight == 0)
+        {
+            stackShape.Radius = 0;
+        }
+        else
+        {
+            stackShape.Radius = _startCollisionRadius;
+        }
+        //update collider position
+        GD.Print("setting position of collider to: " + (_localColliderStart.Y + (_stackHeight * 0.5f)));
+        StackCollider.Position = new Vector3(0, _localColliderStart.Y + (_stackHeight * 0.5f), 0);
+    }
 
     private Vector3 GetForward(Node3D node)
     {
@@ -133,4 +191,5 @@ public partial class CoinStack : Area3D
         _hud.HeldCoins = _coins;
         _hud.UpdateLabel();
     }
+    public Player Player { get => _player; set => _player = value; }
 }

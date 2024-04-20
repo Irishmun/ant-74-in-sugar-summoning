@@ -1,0 +1,12 @@
+TODO:
+- [ ] Add options menu
+    - [ ] graphics settings (bloom, SSAO, SSR, SSIL, SDFGI)
+    - [ ] sensitivity
+    - [ ] volume sliders (environment, player)
+- [X] Add camera zoom scrolling
+- [X] Add collision on held coins (also suggested by IronAx)
+    - [ ] prevent coin pick-up when that would cause squashing
+- [ ] Add more content (puzzles, enemies, levels, etc)
+    - [ ] make own environment (try out godot [Terrain3D](https://github.com/TokisanGames/Terrain3D)?)
+    - [ ] add puzzles (to get to coins/involving held coins)
+- [X] Make player slower, the more coins are carried
