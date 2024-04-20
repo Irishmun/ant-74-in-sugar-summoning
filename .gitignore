@@ -16,5 +16,5 @@ data_*/
 #visual studio cache
 .vs
 
-#Godot addons
-addons/godot-jolt
+#Godot addon specifc
+addons/godot-jolt/[Ww]indows/~*.dll
