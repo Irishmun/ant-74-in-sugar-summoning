@@ -4247,6 +4247,10 @@ _data = {
 "walk_hold": SubResource("Animation_t0jc4")
 }
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_h2cv3"]
+height = 0.7
+radius = 0.8
+
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_4rkbg"]
 length = 0.303
 
@@ -4288,10 +4292,6 @@ stream_2/weight = 1.0
 stream_3/stream = ExtResource("11_kvytj")
 stream_3/weight = 1.0
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_h2cv3"]
-height = 0.7
-radius = 0.8
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_43e7j"]
 height = 1.0
 radius = 0.513
@@ -4302,7 +4302,7 @@ CamRoot = NodePath("CamHorizontal")
 Cam = NodePath("CamHorizontal/CamVertical")
 animator = NodePath("Antstronaut/AnimationPlayer")
 MeshRoot = NodePath("Antstronaut")
-CoinStack = NodePath("Pickup Area")
+CoinStack = NodePath("Antstronaut/Pickup Area")
 FloorCast = NodePath("RayCast3D")
 RotationSpeed = 10.0
 ControllerMultiplier = 10.0
@@ -4510,6 +4510,17 @@ gi_mode = 0
 modulate = Color(1, 1, 1, 0.901961)
 texture = ExtResource("3_bsfyh")
 
+[node name="Pickup Area" type="Area3D" parent="Antstronaut" node_paths=PackedStringArray("Stack", "PickupStream", "StackCollider")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.19116)
+script = ExtResource("7_0kqoy")
+Stack = NodePath("../Money")
+PickupStream = NodePath("../../PickupStream")
+StackCollider = NodePath("../../StackCollider")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Antstronaut/Pickup Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0933201, 0.0119475)
+shape = SubResource("CylinderShape3D_h2cv3")
+
 [node name="SeparationShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.302954, -8.74228e-09)
 shape = SubResource("SeparationRayShape3D_4rkbg")
@@ -4537,17 +4548,6 @@ bus = &"Player"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.671118, 0.0896448)
 stream = SubResource("AudioStreamRandomizer_jqile")
 bus = &"Player"
-
-[node name="Pickup Area" type="Area3D" parent="." node_paths=PackedStringArray("Stack", "PickupStream", "StackCollider")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.19116)
-script = ExtResource("7_0kqoy")
-Stack = NodePath("../Antstronaut/Money")
-PickupStream = NodePath("../PickupStream")
-StackCollider = NodePath("../StackCollider")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickup Area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0933201, 0.0119475)
-shape = SubResource("CylinderShape3D_h2cv3")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.098468, 0)

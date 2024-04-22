@@ -1,0 +1,341 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4bsfv2nwghd4"]
+
+[ext_resource type="Texture2D" uid="uid://boxbb18oavxnu" path="res://sprites/menu/UI_PauseMenu.png" id="1_wfjja"]
+[ext_resource type="Theme" uid="uid://dq6avs53fruwb" path="res://new_theme.tres" id="3_3821d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqy0j"]
+font_size = 41
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -352.0
+offset_top = -244.0
+offset_right = 288.0
+offset_bottom = 236.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_3821d")
+
+[node name="Background" type="NinePatchRect" parent="."]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wfjja")
+region_rect = Rect2(0, 0, 128, 128)
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.026
+anchor_top = 0.137
+anchor_right = 0.973
+anchor_bottom = 0.892
+offset_left = 0.5
+offset_top = 0.130005
+offset_right = 0.249939
+offset_bottom = 0.0799866
+grow_horizontal = 2
+grow_vertical = 2
+clip_tabs = false
+all_tabs_in_front = true
+use_hidden_tabs_for_min_size = true
+
+[node name="Audio" type="Control" parent="TabContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 11.0
+offset_right = 0.170044
+offset_bottom = -0.349976
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Master Volume:"
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Audio/VBoxContainer/MasterVolumeContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "100"
+horizontal_alignment = 2
+
+[node name="VolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="PlayerVolumeContainer" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/PlayerVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Player Volume:"
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Audio/VBoxContainer/PlayerVolumeContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "100"
+horizontal_alignment = 2
+
+[node name="VolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/PlayerVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Effect Volume:"
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Audio/VBoxContainer/SFXVolumeContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "100"
+horizontal_alignment = 2
+
+[node name="VolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="Graphics" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 11.0
+offset_right = 0.170044
+offset_bottom = -0.349976
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FullscreenSetting" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/FullscreenSetting"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Display Mode:"
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Graphics/VBoxContainer/FullscreenSetting"]
+layout_mode = 2
+size_flags_horizontal = 10
+flat = true
+alignment = 2
+item_count = 3
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Exclusive Fullscreen"
+popup/item_0/id = 0
+popup/item_1/text = "Windowed Fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "Windowed"
+popup/item_2/id = 2
+
+[node name="AntiAliasing" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/AntiAliasing"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Anti-Aliasing"
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Graphics/VBoxContainer/AntiAliasing"]
+layout_mode = 2
+size_flags_horizontal = 10
+flat = true
+alignment = 2
+item_count = 6
+selected = 4
+allow_reselect = true
+popup/item_0/text = "Disabled"
+popup/item_0/id = 0
+popup/item_1/text = "FXAA"
+popup/item_1/id = 1
+popup/item_2/text = "MSAA 2x"
+popup/item_2/id = 2
+popup/item_3/text = "MSAA 4x"
+popup/item_3/id = 3
+popup/item_4/text = "MSAA 8x"
+popup/item_4/id = 4
+popup/item_5/text = "TAA"
+popup/item_5/id = 5
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+
+[node name="SSAOSettingContainer" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/SSAOSettingContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Screen-Space Ambient Occlusion:"
+
+[node name="SSAOCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SSAOSettingContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+text = "Enabled"
+
+[node name="SSRSettingContainer" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/SSRSettingContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Screen-Space Reflections:"
+
+[node name="SSRCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SSRSettingContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+text = "Enabled"
+
+[node name="SSILSettingContainer2" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/SSILSettingContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Screen-Space Indirect Lighting:"
+
+[node name="SSILCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SSILSettingContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+text = "Enabled"
+
+[node name="SDFGISettingContainer3" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/SDFGISettingContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Advanced Lighting (SDFGI):"
+
+[node name="SDFGICheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SDFGISettingContainer3"]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+text = "Enabled"
+
+[node name="BloomSettingContainer" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/BloomSettingContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Bloom:"
+
+[node name="BloomCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/BloomSettingContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+text = "Enabled"
+
+[node name="Gameplay" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Gameplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 11.0
+offset_right = 0.170044
+offset_bottom = -0.349976
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="TabContainer/Gameplay/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Gameplay/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Camera Sensitivty:"
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Gameplay/VBoxContainer/SFXVolumeContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "0.5"
+horizontal_alignment = 2
+
+[node name="SensitivitySlider" type="HSlider" parent="TabContainer/Gameplay/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.047
+anchor_right = 1.0
+anchor_bottom = 0.047
+offset_top = 0.0299988
+offset_bottom = 44.03
+grow_horizontal = 2
+theme = ExtResource("3_3821d")
+text = "OPTIONS"
+label_settings = SubResource("LabelSettings_bqy0j")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ApplySettingsButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.944
+anchor_top = 0.971
+anchor_right = 0.944
+anchor_bottom = 0.971
+offset_left = -67.0001
+offset_top = -31.2101
+offset_right = -6.10352e-05
+offset_bottom = -0.210052
+grow_horizontal = 0
+grow_vertical = 0
+text = " APPLY "

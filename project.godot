@@ -22,12 +22,15 @@ config/icon="res://icon.svg"
 
 DebugInput="res://scripts/debug/DebugInput.cs"
 SceneChangeUtil="*res://scripts/util/SceneChangeUtil.cs"
-GameUI="*res://scenes/gameUI.tscn"
+GameUI="*res://scenes/UI/gameUI.tscn"
+OptionsUI="*res://scenes/UI/OptionsUI.tscn"
 GameTimer="*res://scripts/GameTimer.cs"
 
 [display]
 
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+window/stretch/scale_mode="integer"
 
 [dotnet]
 
@@ -108,3 +111,7 @@ ZoomOut={
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
+
+[rendering]
+
+anti_aliasing/quality/msaa_3d=3

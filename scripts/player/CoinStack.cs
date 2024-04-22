@@ -82,24 +82,24 @@ public partial class CoinStack : Area3D
     {
         _stackWeight += coin.Mass;
         _stackHeight += coin.Height;
+        _coins.Add(coin);
         UpdatePlayerSpeed();
         UpdateStackCollider();
-        if (_coins.Count == 0)
+        coin.ProcessMode = ProcessModeEnum.Disabled;
+        coin.Rotation = Vector3.Zero;
+        if (_coins.Count == 1)
         {
-            coin.ProcessMode = ProcessModeEnum.Disabled;
+            //coin.ProcessMode = ProcessModeEnum.Disabled;
             coin.Reparent(Stack, false);
             coin.Position = Vector3.Zero;
-            coin.Rotation = Vector3.Zero;
-            _coins.Add(coin);
+            //coin.Rotation = Vector3.Zero;
             MakePlayerHoldCoins();
             return;
         }
-        Coin last = _coins[_coins.Count - 1];
-        coin.ProcessMode = ProcessModeEnum.Disabled;
+        Coin last = _coins[_coins.Count - 2];
         coin.Reparent(last, false);
         coin.Position = new Vector3(0, last.Height, 0);
-        coin.Rotation = Vector3.Zero;
-        _coins.Add(coin);
+        //_coins.Add(coin);
     }
 
     public void RemoveTopCoinFromStack()
@@ -108,29 +108,23 @@ public partial class CoinStack : Area3D
         { return; }
         Coin coin = _coins[_coins.Count - 1];
         GD.Print("removing coin from stack of size " + _coins.Count);
+
         _stackWeight -= coin.Mass;
         _stackHeight -= coin.Height;
-        UpdatePlayerSpeed();
-        UpdateStackCollider();
-        if (_coins.Count == 1)
-        {
-            coin.Reparent(GetTree().CurrentScene, true);
-            GD.Print($"coin old position: {coin.GlobalPosition}");
-
-            coin.GlobalPosition += GetForward(coin);
-            GD.Print($"coin new position: {coin.GlobalPosition}");
-            coin.ProcessMode = ProcessModeEnum.Pausable;
-            _coins.Remove(coin);
-            MakePlayerHoldCoins();
-            return;
-        }
-
-        //remove top coin from pile, returning it's parent to the scene
-        coin.Reparent(GetTree().CurrentScene, true);
-        coin.GlobalPosition += GetForward(coin);
-        coin.ProcessMode = ProcessModeEnum.Pausable;
         _coins.Remove(coin);
 
+        UpdatePlayerSpeed();
+        UpdateStackCollider();
+        //reparent coin back to scene, set position to in front of player
+        coin.Reparent(GetTree().CurrentScene, true);
+        coin.GlobalPosition += GetForward(coin);
+        GD.Print($"coin new position: {coin.GlobalPosition}");
+        coin.ProcessMode = ProcessModeEnum.Pausable;
+
+        if (_coins.Count == 0)
+        {
+            MakePlayerHoldCoins();
+        }
     }
 
     private void MakePlayerHoldCoins()
@@ -162,13 +156,12 @@ public partial class CoinStack : Area3D
     }
 
     private void UpdateStackCollider()
-    {
-        //TODO: add radius handling as well, for "widestradius"
-        //figure out how to have rigidbody collisions detected as well
+    {//TODO: add radius handling as well, for "widestradius"
         //update collider height
         CylinderShape3D stackShape = StackCollider.Shape as CylinderShape3D;
+        _stackHeight = _stackHeight < 0 ? 0 : _stackHeight;
         stackShape.Height = _stackHeight;
-        if (_stackHeight == 0)
+        if (_coins.Count <= 0)
         {
             stackShape.Radius = 0;
         }
@@ -177,7 +170,7 @@ public partial class CoinStack : Area3D
             stackShape.Radius = _startCollisionRadius;
         }
         //update collider position
-        GD.Print("setting position of collider to: " + (_localColliderStart.Y + (_stackHeight * 0.5f)));
+        GD.Print($"Stack height:{_stackHeight}, setting position of collider to: {(_localColliderStart.Y + (_stackHeight * 0.5f))}");
         StackCollider.Position = new Vector3(0, _localColliderStart.Y + (_stackHeight * 0.5f), 0);
     }
 

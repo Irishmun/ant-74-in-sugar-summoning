@@ -1,9 +1,43 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dq6avs53fruwb"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dq6avs53fruwb"]
 
 [ext_resource type="FontFile" uid="uid://dbref88chqpuh" path="res://fonts/VCR_OSD_MONO_1.001.ttf" id="1_sdou3"]
+[ext_resource type="Texture2D" uid="uid://ckndv447week4" path="res://sprites/menu/UI_SliderKnob.png" id="2_g1038"]
+[ext_resource type="Texture2D" uid="uid://buif57mlqaext" path="res://sprites/menu/UI_SliderBar.png" id="3_s15bv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig4ks"]
+bg_color = Color(0.921569, 0.921569, 0.921569, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0fvu8"]
+texture = ExtResource("3_s15bv")
+texture_margin_left = 19.0
+texture_margin_top = 6.0
+texture_margin_right = 18.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 6, 37, 12)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_vogcd"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+color = Color(0.384314, 0.384314, 0.384314, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xbta0"]
 
 [resource]
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("1_sdou3")
+HSlider/icons/grabber = ExtResource("2_g1038")
+HSlider/icons/grabber_disabled = ExtResource("2_g1038")
+HSlider/icons/grabber_highlight = ExtResource("2_g1038")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_ig4ks")
+HSlider/styles/slider = SubResource("StyleBoxTexture_0fvu8")
+ItemList/fonts/font = ExtResource("1_sdou3")
 Label/fonts/font = ExtResource("1_sdou3")
+OptionButton/fonts/font = ExtResource("1_sdou3")
 RichTextLabel/fonts/normal_font = ExtResource("1_sdou3")
+TabContainer/fonts/font = ExtResource("1_sdou3")
+TabContainer/styles/panel = SubResource("StyleBoxLine_vogcd")
+TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_xbta0")
