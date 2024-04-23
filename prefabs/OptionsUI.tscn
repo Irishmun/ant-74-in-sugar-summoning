@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4bsfv2nwghd4"]
+[gd_scene load_steps=5 format=3 uid="uid://b4bsfv2nwghd4"]
 
 [ext_resource type="Texture2D" uid="uid://boxbb18oavxnu" path="res://sprites/menu/UI_PauseMenu.png" id="1_wfjja"]
+[ext_resource type="Script" path="res://scripts/UI/OptionsUI.cs" id="2_l0hyb"]
 [ext_resource type="Theme" uid="uid://dq6avs53fruwb" path="res://new_theme.tres" id="3_3821d"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bqy0j"]
 font_size = 41
 
-[node name="Options" type="Control"]
+[node name="Options" type="Control" node_paths=PackedStringArray("GoBackButton", "ApplyButton", "MasterVolumeSlider", "MasterVolumeLabel", "SFXVolumeSlider", "SFXVolumeLabel", "PlayerVolumeSlider", "PlayerVolumeLabel", "AmbientVolumeSlider", "AmbientVolumeLabel", "FullScreenOptions", "AntiAliasingOptions", "SSAOCheck", "SSRCheck", "SSILCheck", "SDFGICheck", "BloomCheck", "SensitivitySlider", "SensitivityLabel")]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -21,7 +23,28 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 theme = ExtResource("3_3821d")
+script = ExtResource("2_l0hyb")
+GoBackButton = NodePath("GoBackButton")
+ApplyButton = NodePath("ApplySettingsButton")
+MasterVolumeSlider = NodePath("TabContainer/Audio/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider")
+MasterVolumeLabel = NodePath("TabContainer/Audio/VBoxContainer/MasterVolumeContainer/ValueLabel")
+SFXVolumeSlider = NodePath("TabContainer/Audio/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider")
+SFXVolumeLabel = NodePath("TabContainer/Audio/VBoxContainer/SFXVolumeContainer/ValueLabel")
+PlayerVolumeSlider = NodePath("TabContainer/Audio/VBoxContainer/PlayerVolumeContainer/PlayerVolumeSlider")
+PlayerVolumeLabel = NodePath("TabContainer/Audio/VBoxContainer/PlayerVolumeContainer/PlayerValueLabel")
+AmbientVolumeSlider = NodePath("TabContainer/Audio/VBoxContainer/AmbientVolumeContainer2/AmbientVolumeSlider")
+AmbientVolumeLabel = NodePath("TabContainer/Audio/VBoxContainer/AmbientVolumeContainer2/ValueLabel")
+FullScreenOptions = NodePath("TabContainer/Graphics/VBoxContainer/FullscreenSetting/OptionButton")
+AntiAliasingOptions = NodePath("TabContainer/Graphics/VBoxContainer/AntiAliasing/OptionButton")
+SSAOCheck = NodePath("TabContainer/Graphics/VBoxContainer/SSAOSettingContainer/SSAOCheckBox")
+SSRCheck = NodePath("TabContainer/Graphics/VBoxContainer/SSRSettingContainer/SSRCheckBox")
+SSILCheck = NodePath("TabContainer/Graphics/VBoxContainer/SSILSettingContainer2/SSILCheckBox")
+SDFGICheck = NodePath("TabContainer/Graphics/VBoxContainer/SDFGISettingContainer3/SDFGICheckBox")
+BloomCheck = NodePath("TabContainer/Graphics/VBoxContainer/BloomSettingContainer/BloomCheckBox")
+SensitivitySlider = NodePath("TabContainer/Gameplay/VBoxContainer/SFXVolumeContainer/SensitivitySlider")
+SensitivityLabel = NodePath("TabContainer/Gameplay/VBoxContainer/SFXVolumeContainer/ValueLabel")
 
 [node name="Background" type="NinePatchRect" parent="."]
 texture_filter = 2
@@ -51,12 +74,14 @@ offset_right = 0.249939
 offset_bottom = 0.0799866
 grow_horizontal = 2
 grow_vertical = 2
+current_tab = 1
 clip_tabs = false
-all_tabs_in_front = true
 use_hidden_tabs_for_min_size = true
 
 [node name="Audio" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
+mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio"]
 layout_mode = 1
@@ -73,6 +98,7 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/MasterVolumeContainer"]
+custom_minimum_size = Vector2(142, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Master Volume:"
@@ -81,40 +107,45 @@ text = "Master Volume:"
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "100"
+text = "50
+"
 horizontal_alignment = 2
 
-[node name="VolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/MasterVolumeContainer"]
+[node name="MasterVolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/MasterVolumeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_filter = 1
 value = 50.0
 
 [node name="PlayerVolumeContainer" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/PlayerVolumeContainer"]
+custom_minimum_size = Vector2(142, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Player Volume:"
 
-[node name="ValueLabel" type="Label" parent="TabContainer/Audio/VBoxContainer/PlayerVolumeContainer"]
+[node name="PlayerValueLabel" type="Label" parent="TabContainer/Audio/VBoxContainer/PlayerVolumeContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-text = "100"
+text = "50"
 horizontal_alignment = 2
 
-[node name="VolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/PlayerVolumeContainer"]
+[node name="PlayerVolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/PlayerVolumeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_filter = 1
 value = 50.0
 
 [node name="SFXVolumeContainer" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/SFXVolumeContainer"]
+custom_minimum_size = Vector2(142, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Effect Volume:"
@@ -123,18 +154,42 @@ text = "Effect Volume:"
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-text = "100"
+text = "50"
 horizontal_alignment = 2
 
-[node name="VolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/SFXVolumeContainer"]
+[node name="SFXVolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/SFXVolumeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_filter = 1
+value = 50.0
+
+[node name="AmbientVolumeContainer2" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/AmbientVolumeContainer2"]
+custom_minimum_size = Vector2(142, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Ambient Volume:"
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Audio/VBoxContainer/AmbientVolumeContainer2"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "50"
+horizontal_alignment = 2
+
+[node name="AmbientVolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/AmbientVolumeContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 1
 value = 50.0
 
 [node name="Graphics" type="Control" parent="TabContainer"]
-visible = false
 layout_mode = 2
+mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics"]
 layout_mode = 1
@@ -158,6 +213,7 @@ text = "Display Mode:"
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Graphics/VBoxContainer/FullscreenSetting"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 flat = true
 alignment = 2
 item_count = 3
@@ -181,6 +237,7 @@ text = "Anti-Aliasing"
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Graphics/VBoxContainer/AntiAliasing"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 flat = true
 alignment = 2
 item_count = 6
@@ -201,6 +258,7 @@ popup/item_5/id = 5
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/Graphics/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="SSAOSettingContainer" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
 layout_mode = 2
@@ -213,6 +271,7 @@ text = "Screen-Space Ambient Occlusion:"
 [node name="SSAOCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SSAOSettingContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 button_pressed = true
 text = "Enabled"
 
@@ -227,6 +286,7 @@ text = "Screen-Space Reflections:"
 [node name="SSRCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SSRSettingContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 button_pressed = true
 text = "Enabled"
 
@@ -241,6 +301,7 @@ text = "Screen-Space Indirect Lighting:"
 [node name="SSILCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SSILSettingContainer2"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 button_pressed = true
 text = "Enabled"
 
@@ -255,6 +316,7 @@ text = "Advanced Lighting (SDFGI):"
 [node name="SDFGICheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SDFGISettingContainer3"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 button_pressed = true
 text = "Enabled"
 
@@ -269,12 +331,14 @@ text = "Bloom:"
 [node name="BloomCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/BloomSettingContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 button_pressed = true
 text = "Enabled"
 
 [node name="Gameplay" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
+mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Gameplay"]
 layout_mode = 1
@@ -299,13 +363,14 @@ text = "Camera Sensitivty:"
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-text = "0.5"
+text = "0.50"
 horizontal_alignment = 2
 
 [node name="SensitivitySlider" type="HSlider" parent="TabContainer/Gameplay/VBoxContainer/SFXVolumeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_filter = 1
 max_value = 1.0
 step = 0.01
 value = 0.5
@@ -338,4 +403,19 @@ offset_right = -6.10352e-05
 offset_bottom = -0.210052
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 1
 text = " APPLY "
+
+[node name="GoBackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.033
+anchor_right = 0.03
+anchor_bottom = 0.033
+offset_left = -0.200001
+offset_top = 0.16
+offset_right = 90.8
+offset_bottom = 31.16
+mouse_filter = 1
+text = " GO BACK "

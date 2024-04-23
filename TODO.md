@@ -1,8 +1,8 @@
 TODO:
-- [ ] Add options menu
-    - [ ] graphics settings (bloom, SSAO, SSR, SSIL, SDFGI)
-    - [ ] sensitivity
-    - [ ] volume sliders (environment, player)
+- [X] Add options menu
+    - [X] graphics settings (bloom, SSAO, SSR, SSIL, SDFGI)
+    - [X] sensitivity
+    - [X] volume sliders (environment, player)
 - [X] Add camera zoom scrolling
 - [X] Add collision on held coins (also suggested by IronAx)
     - [ ] prevent coin pick-up when that would cause squashing

@@ -21,7 +21,7 @@ public partial class CoinStack : Area3D
     {
         this.BodyEntered += CoinStack_BodyEntered;
         this.BodyExited += CoinStack_BodyExited;
-        _hud = GetNode<HudUI>(HudUI.HUD_UI_TREE);
+        _hud = GetNode<HudUI>(HudUI.TREE);
         _localColliderStart = StackCollider.Position;
         _startCollisionRadius = (StackCollider.Shape as CylinderShape3D).Radius;
         UpdateStackCollider();

@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://bnlh0jiig6p1u" path="res://sprites/dialog/spr_dialogbox.png" id="1_r1qab"]
 [ext_resource type="Script" path="res://scripts/UI/HudUI.cs" id="1_unqbk"]
 [ext_resource type="Texture2D" uid="uid://cb7f6qhaut4d5" path="res://sprites/spr_score.png" id="2_0kl8u"]
-[ext_resource type="Texture2D" uid="uid://ceebvrwn20x20" path="res://sprites/temp_win.png" id="2_6oyta"]
 [ext_resource type="Texture2D" uid="uid://bpyp1me406ord" path="res://sprites/dialog/spr_dialogartbox.png" id="2_pacio"]
 [ext_resource type="FontFile" uid="uid://dbref88chqpuh" path="res://fonts/VCR_OSD_MONO_1.001.ttf" id="3_8lsa4"]
 [ext_resource type="Texture2D" uid="uid://cxstdj2aj1yjx" path="res://sprites/dialog/ant_dialog.png" id="3_b40m0"]
@@ -13,7 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://do7wf0deyjdk1" path="res://sprites/dialog/spr_confirmdialog.png" id="5_jnudw"]
 [ext_resource type="Texture2D" uid="uid://ce7w2q4cdsh32" path="res://sprites/dialog/scanlines.png" id="9_7pgvt"]
 [ext_resource type="Theme" uid="uid://dq6avs53fruwb" path="res://new_theme.tres" id="11_8lrak"]
-[ext_resource type="Script" path="res://scenes/pauseMenu.cs" id="12_u0ynp"]
+[ext_resource type="PackedScene" uid="uid://b4bsfv2nwghd4" path="res://prefabs/OptionsUI.tscn" id="12_kjiun"]
+[ext_resource type="Script" path="res://scripts/UI/PauseMenu.cs" id="12_u0ynp"]
 [ext_resource type="Script" path="res://scripts/UI/SceneFade.cs" id="13_cv5bj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wa1cr"]
@@ -194,6 +194,7 @@ _data = {
 }
 
 [node name="GameUI" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -211,7 +212,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="hud" type="Control" parent="Non-main menu" node_paths=PackedStringArray("scoreLabel", "WinImage")]
+[node name="hud" type="Control" parent="Non-main menu" node_paths=PackedStringArray("scoreLabel")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -221,13 +222,15 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_unqbk")
 scoreLabel = NodePath("Background/CoinCount")
-WinImage = NodePath("TextureRect")
 
 [node name="Background" type="NinePatchRect" parent="Non-main menu/hud"]
 texture_filter = 1
 layout_mode = 1
-offset_right = 42.0
-offset_bottom = 21.0
+offset_left = 292.0
+offset_top = 152.0
+offset_right = 334.0
+offset_bottom = 173.0
+scale = Vector2(5, 5)
 pivot_offset = Vector2(73, 38)
 texture = ExtResource("2_0kl8u")
 region_rect = Rect2(0, 0, 24, 24)
@@ -288,21 +291,6 @@ Pause: Escape/Start"
 label_settings = SubResource("LabelSettings_6etua")
 horizontal_alignment = 2
 autowrap_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Non-main menu/hud"]
-visible = false
-z_index = 1024
-z_as_relative = false
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6oyta")
-expand_mode = 5
-stretch_mode = 5
 
 [node name="dialog" type="Control" parent="Non-main menu" node_paths=PackedStringArray("TextParent", "TextNode", "Animator", "FinishedIndicator")]
 layout_mode = 1
@@ -434,8 +422,7 @@ libraries = {
 "Dialog": SubResource("AnimationLibrary_4dj6b")
 }
 
-[node name="pauseMenu" type="Control" parent="Non-main menu" node_paths=PackedStringArray("ResumeButton", "OptionsButton", "QuitButton")]
-z_index = 2048
+[node name="pauseMenu" type="Control" parent="Non-main menu" node_paths=PackedStringArray("ResumeButton", "OptionsButton", "QuitButton", "MainPauseNode", "OptionsNode")]
 z_as_relative = false
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 1
@@ -449,6 +436,8 @@ script = ExtResource("12_u0ynp")
 ResumeButton = NodePath("MainPause/VBoxContainer/ResumeButton")
 OptionsButton = NodePath("MainPause/VBoxContainer/OptionsButton")
 QuitButton = NodePath("MainPause/VBoxContainer/QuitButton")
+MainPauseNode = NodePath("MainPause")
+OptionsNode = NodePath("Options")
 
 [node name="ColorRect" type="ColorRect" parent="Non-main menu/pauseMenu"]
 layout_mode = 1
@@ -457,6 +446,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.52549)
 
 [node name="MainPause" type="NinePatchRect" parent="Non-main menu/pauseMenu"]
@@ -476,6 +466,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(5, 5)
 pivot_offset = Vector2(25, 25)
+mouse_filter = 1
 texture = ExtResource("1_r1qab")
 region_rect = Rect2(0, 0, 24, 24)
 patch_margin_left = 4
@@ -516,74 +507,28 @@ alignment = 1
 
 [node name="ResumeButton" type="Button" parent="Non-main menu/pauseMenu/MainPause/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
 theme = ExtResource("11_8lrak")
 text = "Resume"
 
 [node name="OptionsButton" type="Button" parent="Non-main menu/pauseMenu/MainPause/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
 theme = ExtResource("11_8lrak")
-disabled = true
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="Non-main menu/pauseMenu/MainPause/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
 theme = ExtResource("11_8lrak")
 text = "Quit"
 
-[node name="OptionsPause" type="NinePatchRect" parent="Non-main menu/pauseMenu"]
+[node name="Options" parent="Non-main menu/pauseMenu" instance=ExtResource("12_kjiun")]
 visible = false
-texture_filter = 1
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(5, 5)
-pivot_offset = Vector2(25, 25)
-texture = ExtResource("1_r1qab")
-region_rect = Rect2(0, 0, 24, 24)
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Non-main menu/pauseMenu/OptionsPause"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.061
-anchor_top = 0.061
-anchor_right = 0.919
-anchor_bottom = 0.919
-offset_left = 1.95
-offset_top = 1.95
-offset_right = 154.05
-offset_bottom = 159.05
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.2, 0.2)
-alignment = 1
-
-[node name="ResumeButton" type="Button" parent="Non-main menu/pauseMenu/OptionsPause/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("11_8lrak")
-text = "Resume"
-
-[node name="OptionsButton" type="Button" parent="Non-main menu/pauseMenu/OptionsPause/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("11_8lrak")
-text = "Resume"
-
-[node name="QuitButton2" type="Button" parent="Non-main menu/pauseMenu/OptionsPause/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("11_8lrak")
-text = "Resume"
 
 [node name="Loading" type="Control" parent="." node_paths=PackedStringArray("_loadingImage")]
 layout_mode = 1

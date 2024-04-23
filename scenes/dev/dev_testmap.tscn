@@ -1,13 +1,16 @@
-[gd_scene load_steps=20 format=3 uid="uid://blw6aaeh8eaoj"]
+[gd_scene load_steps=25 format=3 uid="uid://blw6aaeh8eaoj"]
 
 [ext_resource type="Texture2D" uid="uid://c55m78dlln5v2" path="res://textures/hdris/meadow_2_2k.exr" id="2_a6kca"]
+[ext_resource type="Script" path="res://scripts/EnvironmentSettings.cs" id="2_kvspf"]
 [ext_resource type="Material" uid="uid://b71u8qrpvjwqr" path="res://scenes/dev/dev_tex.tres" id="3_54noc"]
+[ext_resource type="AudioStream" uid="uid://dvl7551biuhtf" path="res://audio/objects/thud.wav" id="4_nbl6h"]
 [ext_resource type="AudioStream" uid="uid://rswjgv6hwbj6" path="res://audio/environment/ambience.ogg" id="5_v6o26"]
 [ext_resource type="PackedScene" uid="uid://dlkv0vdobu40k" path="res://prefabs/player.tscn" id="6_vhbwn"]
 [ext_resource type="PackedScene" uid="uid://34m4bpcuop4a" path="res://prefabs/ent_1euro.tscn" id="7_41dbc"]
 [ext_resource type="PackedScene" uid="uid://cuqj7c0ewhmkk" path="res://prefabs/ent_2euro.tscn" id="8_v7ofh"]
 [ext_resource type="PackedScene" uid="uid://ct1q23omoglug" path="res://models/trade sign/tradedeal.glb" id="9_qhc3c"]
 [ext_resource type="PackedScene" uid="uid://1lg4n13s61nm" path="res://models/aura/aura.glb" id="10_j64mn"]
+[ext_resource type="Script" path="res://scripts/debug/DebugAudioTrigger.cs" id="10_sut0d"]
 [ext_resource type="Script" path="res://scripts/CoinObjective.cs" id="11_1431n"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bgpty"]
@@ -55,6 +58,16 @@ _data = {
 "win": SubResource("Animation_83lsm")
 }
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sf006"]
+height = 0.5
+radius = 2.37638
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5xgdn"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("4_nbl6h")
+stream_0/weight = 1.0
+
 [node name="D1Awakeningwood01" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -64,6 +77,7 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sp17v")
+script = ExtResource("2_kvspf")
 
 [node name="Terrain" type="Node" parent="."]
 
@@ -183,3 +197,22 @@ libraries = {
 "": SubResource("AnimationLibrary_ijreu"),
 "Win": SubResource("AnimationLibrary_gowqa")
 }
+
+[node name="Entities" type="Node" parent="."]
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0.5, -11.5)
+material_override = ExtResource("3_54noc")
+use_collision = true
+
+[node name="Area3D" type="Area3D" parent="Entities/CSGBox3D3" node_paths=PackedStringArray("audio")]
+script = ExtResource("10_sut0d")
+audio = NodePath("../AudioStreamPlayer3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entities/CSGBox3D3/Area3D"]
+shape = SubResource("CylinderShape3D_sf006")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Entities/CSGBox3D3"]
+stream = SubResource("AudioStreamRandomizer_5xgdn")
+autoplay = true
+bus = &"SFX"

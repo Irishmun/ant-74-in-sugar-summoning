@@ -3,17 +3,16 @@ using System;
 
 public partial class SceneFade : Node
 {
+    public const string TREE = "/root/GameUI/ScreenFade";
+    
     [Export] private AnimationPlayer animator;
-
-
     private SceneChangeUtil _sceneChange;
-    public static string SCENE_FADE_TREE = "/root/GameUI/ScreenFade";
 
     private bool _isFading = false;
 
     public override void _Ready()
     {
-        _sceneChange = GetNode<SceneChangeUtil>(SceneChangeUtil.SCENE_CHANGE_NODE_TREE);
+        _sceneChange = GetNode<SceneChangeUtil>(SceneChangeUtil.TREE);
     }
 
     public void FadeToScene()

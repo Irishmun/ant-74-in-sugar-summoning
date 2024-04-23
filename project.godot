@@ -20,17 +20,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DebugInput="res://scripts/debug/DebugInput.cs"
+GameSettings="*res://scripts/GameSettings.cs"
 SceneChangeUtil="*res://scripts/util/SceneChangeUtil.cs"
 GameUI="*res://scenes/UI/gameUI.tscn"
-OptionsUI="*res://scenes/UI/OptionsUI.tscn"
 GameTimer="*res://scripts/GameTimer.cs"
-
-[display]
-
-window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_height"
-window/stretch/scale_mode="integer"
 
 [dotnet]
 

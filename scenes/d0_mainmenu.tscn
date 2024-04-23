@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhqx7jkhhgydu"]
+[gd_scene load_steps=5 format=3 uid="uid://bhqx7jkhhgydu"]
 
 [ext_resource type="Script" path="res://scripts/UI/MainMenu.cs" id="1_1unus"]
 [ext_resource type="Texture2D" uid="uid://dr76t54i5ltka" path="res://textures/main menu/design.png" id="1_4cf2s"]
 [ext_resource type="FontFile" uid="uid://dbref88chqpuh" path="res://fonts/VCR_OSD_MONO_1.001.ttf" id="3_1jyiv"]
+[ext_resource type="PackedScene" uid="uid://b4bsfv2nwghd4" path="res://prefabs/OptionsUI.tscn" id="4_wuinc"]
 
-[node name="D0Mainmenu" type="Control" node_paths=PackedStringArray("StartButton", "SettingsButton", "OptionsMenu", "MenuButtons", "QuitButton")]
+[node name="D0Mainmenu" type="Control" node_paths=PackedStringArray("StartButton", "SettingsButton", "MenuButtons", "OptionsMenu", "QuitButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,8 +17,8 @@ size_flags_vertical = 4
 script = ExtResource("1_1unus")
 StartButton = NodePath("menu items/StartButton")
 SettingsButton = NodePath("menu items/OptionsButton")
-OptionsMenu = NodePath("Options menu")
 MenuButtons = NodePath("menu items")
+OptionsMenu = NodePath("Options")
 QuitButton = NodePath("menu items/QuitButton")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -58,7 +59,6 @@ offset_right = 231.0
 offset_bottom = 119.0
 theme_override_fonts/font = ExtResource("3_1jyiv")
 theme_override_font_sizes/font_size = 24
-disabled = true
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="menu items"]
@@ -71,7 +71,5 @@ theme_override_fonts/font = ExtResource("3_1jyiv")
 theme_override_font_sizes/font_size = 24
 text = "Quit"
 
-[node name="Options menu" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Options" parent="." instance=ExtResource("4_wuinc")]
+layout_mode = 1

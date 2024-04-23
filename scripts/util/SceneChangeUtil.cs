@@ -5,7 +5,7 @@ public partial class SceneChangeUtil : Node
 {
     private const string SCENE_FOLDER_PATH = "res://scenes//";
 
-    public static readonly string SCENE_CHANGE_NODE_TREE = "/root/SceneChangeUtil";
+    public static readonly string TREE = "/root/SceneChangeUtil";
 
     public string SceneEntityID { get; set; }
 
@@ -13,7 +13,7 @@ public partial class SceneChangeUtil : Node
 
     public override void _Ready()
     {
-        _loadingUI = GetNode<LoadingUI>(LoadingUI.LOADING_UI_TREE);
+        _loadingUI = GetNode<LoadingUI>(LoadingUI.TREE);
     }
 
     public void ChangeSceneNextFrame(string sceneName)

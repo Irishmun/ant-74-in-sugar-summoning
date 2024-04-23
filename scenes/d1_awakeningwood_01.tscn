@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://1w67tk2w6k1f"]
+[gd_scene load_steps=23 format=3 uid="uid://1w67tk2w6k1f"]
 
-[ext_resource type="Script" path="res://scripts/debug/dev_DialogTest.cs" id="1_fqp00"]
+[ext_resource type="Script" path="res://scripts/dev_DialogTest.cs" id="1_fqp00"]
 [ext_resource type="Texture2D" uid="uid://c55m78dlln5v2" path="res://textures/hdris/meadow_2_2k.exr" id="1_queea"]
 [ext_resource type="PackedScene" uid="uid://cfl7pm5dtk8ma" path="res://models/awakening_woods/awakening_wood.tscn" id="2_uuxad"]
 [ext_resource type="PackedScene" uid="uid://dlkv0vdobu40k" path="res://prefabs/player.tscn" id="3_16aoi"]
+[ext_resource type="Script" path="res://scripts/EnvironmentSettings.cs" id="3_jmjgj"]
 [ext_resource type="PackedScene" uid="uid://34m4bpcuop4a" path="res://prefabs/ent_1euro.tscn" id="4_avxxc"]
 [ext_resource type="PackedScene" uid="uid://bx1ge8c71yuhf" path="res://models/awakening_woods/awakening_wood_walls.tscn" id="4_q8g2j"]
 [ext_resource type="AudioStream" uid="uid://rswjgv6hwbj6" path="res://audio/environment/ambience.ogg" id="4_w74ti"]
@@ -25,6 +26,7 @@ ambient_light_source = 3
 reflected_light_source = 2
 tonemap_mode = 2
 tonemap_exposure = 0.7
+ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
@@ -67,6 +69,7 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sp17v")
+script = ExtResource("3_jmjgj")
 
 [node name="Terrain" type="Node" parent="."]
 

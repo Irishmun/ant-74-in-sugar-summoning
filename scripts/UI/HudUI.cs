@@ -4,10 +4,9 @@ using System.Collections.Generic;
 
 public partial class HudUI : Control
 {
-    public static string HUD_UI_TREE = "/root/GameUI/Non-main menu/hud";
+    public const string TREE = "/root/GameUI/Non-main menu/hud";
 
     [Export] private Label scoreLabel;
-    [Export] private CanvasItem WinImage;
 
     private List<Coin> _ScoredCoins = new List<Coin>();
     private List<Coin> _heldCoins = new List<Coin>();
@@ -15,13 +14,6 @@ public partial class HudUI : Control
     public override void _Ready()
     {
         UpdateLabel();
-        WinImage.Visible = false;
-    }
-
-
-    public void ShowWin()
-    {
-        WinImage.Visible = true;
     }
 
     public void UpdateLabel()

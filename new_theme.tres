@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dq6avs53fruwb"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dq6avs53fruwb"]
 
 [ext_resource type="FontFile" uid="uid://dbref88chqpuh" path="res://fonts/VCR_OSD_MONO_1.001.ttf" id="1_sdou3"]
 [ext_resource type="Texture2D" uid="uid://ckndv447week4" path="res://sprites/menu/UI_SliderKnob.png" id="2_g1038"]
@@ -26,6 +26,14 @@ thickness = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xbta0"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbsje"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0)
+border_color = Color(0.175, 0.175, 0.175, 1)
+
 [resource]
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("1_sdou3")
@@ -41,3 +49,4 @@ RichTextLabel/fonts/normal_font = ExtResource("1_sdou3")
 TabContainer/fonts/font = ExtResource("1_sdou3")
 TabContainer/styles/panel = SubResource("StyleBoxLine_vogcd")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_xbta0")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_xbsje")

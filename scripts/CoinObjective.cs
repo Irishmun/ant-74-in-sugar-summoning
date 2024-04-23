@@ -18,7 +18,7 @@ public partial class CoinObjective : Area3D
     {
         this.BodyEntered += CoinStack_BodyEntered;
         this.BodyExited += CoinStack_BodyExited;
-        _hud = GetNode<HudUI>(HudUI.HUD_UI_TREE);
+        _hud = GetNode<HudUI>(HudUI.TREE);
     }
 
     public override void _ExitTree()
@@ -79,7 +79,7 @@ public partial class CoinObjective : Area3D
             GD.PrintRich("[rainbow][wave]You Win![/wave][/rainbow]");
             GD.Print($"final time: {GameTimer.Instance.Time}({GameTimer.Instance.RawTime})");
             player.MayDoStuff = false;
-            SceneFade fade = GetNode<SceneFade>(SceneFade.SCENE_FADE_TREE);
+            SceneFade fade = GetNode<SceneFade>(SceneFade.TREE);
             fade.SceneName = WinScene;
             fade.FadeToScene();
         }

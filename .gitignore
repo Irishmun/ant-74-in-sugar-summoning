@@ -16,5 +16,8 @@ data_*/
 #visual studio cache
 .vs
 
+#game generated files
+Settings.ini
+
 #Godot addon specifc
 addons/godot-jolt/[Ww]indows/~*.dll

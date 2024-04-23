@@ -5,8 +5,7 @@ using System.Collections;
 
 public partial class DialogUI : Node
 {
-
-    public static DialogUI Instance { get; private set; }
+    public const string TREE = "/root/GameUI/Non-main menu/dialog";
 
     [ExportGroup("Settings")]
     [Export] private float TypeSpeed;
@@ -38,11 +37,6 @@ public partial class DialogUI : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-
         //_signalBus.DisplayDialog += DisplayDialogUI;
         Init();
     }
