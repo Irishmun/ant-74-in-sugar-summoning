@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dq6avs53fruwb"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dq6avs53fruwb"]
 
 [ext_resource type="FontFile" uid="uid://dbref88chqpuh" path="res://fonts/VCR_OSD_MONO_1.001.ttf" id="1_sdou3"]
 [ext_resource type="Texture2D" uid="uid://ckndv447week4" path="res://sprites/menu/UI_SliderKnob.png" id="2_g1038"]
@@ -6,6 +6,11 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig4ks"]
 bg_color = Color(0.921569, 0.921569, 0.921569, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bix0f"]
+bg_color = Color(0.968627, 0.733333, 0.168627, 1)
 corner_radius_top_left = 10
 corner_radius_bottom_left = 10
 
@@ -35,17 +40,20 @@ bg_color = Color(0, 0, 0, 0)
 border_color = Color(0.175, 0.175, 0.175, 1)
 
 [resource]
+Button/colors/font_focus_color = Color(0.968627, 0.733333, 0.168627, 1)
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("1_sdou3")
 HSlider/icons/grabber = ExtResource("2_g1038")
 HSlider/icons/grabber_disabled = ExtResource("2_g1038")
 HSlider/icons/grabber_highlight = ExtResource("2_g1038")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_ig4ks")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_bix0f")
 HSlider/styles/slider = SubResource("StyleBoxTexture_0fvu8")
 ItemList/fonts/font = ExtResource("1_sdou3")
 Label/fonts/font = ExtResource("1_sdou3")
 OptionButton/fonts/font = ExtResource("1_sdou3")
 RichTextLabel/fonts/normal_font = ExtResource("1_sdou3")
+TabContainer/colors/font_selected_color = Color(0.968627, 0.733333, 0.168627, 1)
 TabContainer/fonts/font = ExtResource("1_sdou3")
 TabContainer/styles/panel = SubResource("StyleBoxLine_vogcd")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_xbta0")

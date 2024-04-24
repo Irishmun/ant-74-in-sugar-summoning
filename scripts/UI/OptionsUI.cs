@@ -5,6 +5,8 @@ public partial class OptionsUI : Control
 {
     public const string TREE = "/root/GameUI/Non-main menu/pauseMenu/Options";
 
+    [Export] private Control GoBackFocus;
+    [Export] private Control GoBackParent;
     [Export] private Button GoBackButton, ApplyButton;
     [ExportGroup("Audio")]
     [Export] private HSlider MasterVolumeSlider;
@@ -85,6 +87,12 @@ public partial class OptionsUI : Control
         base._ExitTree();
     }
 
+    public void BecomeVisible()
+    {
+        GoBackButton.GrabFocus();
+        this.Visible = true;
+    }
+
     #region Buttons
     private void ApplyButton_Pressed()
     {
@@ -94,7 +102,13 @@ public partial class OptionsUI : Control
 
     private void GoBackButton_Pressed()
     {
+        GoBackButton.ReleaseFocus();
         this.Visible = false;
+        if (GoBackParent != null)
+        {
+            GoBackParent.Visible = true;
+        }
+        GoBackFocus?.GrabFocus();
     }
     #endregion
 

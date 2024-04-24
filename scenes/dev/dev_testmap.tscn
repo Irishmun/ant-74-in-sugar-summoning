@@ -181,12 +181,10 @@ shape = SubResource("BoxShape3D_1w5to")
 [node name="aura" parent="Goals/StaticBody3D" instance=ExtResource("10_j64mn")]
 transform = Transform3D(-0.277616, 0, 0.531912, 0, 1, 0, -0.531912, 0, -0.277616, 0.636395, 0, 1.48492)
 
-[node name="Objective" type="Area3D" parent="Goals/StaticBody3D" node_paths=PackedStringArray("player")]
+[node name="Objective" type="Area3D" parent="Goals/StaticBody3D"]
 transform = Transform3D(-0.866025, 0, 0.500001, 0, 1, 0, -0.500001, 0, -0.866025, 0.636395, 0, 1.48492)
 script = ExtResource("11_1431n")
-player = NodePath("../../../player")
 CoinWinCount = 1
-WinValue = 20000
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Goals/StaticBody3D/Objective"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32932, 0)

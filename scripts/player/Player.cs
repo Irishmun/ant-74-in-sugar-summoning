@@ -19,7 +19,7 @@ public partial class Player : CharacterBody3D
     [ExportGroup("Camera")]
     [Export] private float ControllerDeadZone = 0.1f;
     [Export] private float ControllerMultiplier = 30f;
-    [Export] private float LookSensitivity = 1f;
+    [Export] private float LookSensitivity = 0.25f;
     [Export] private float MaxLookDown = -75;
     [Export] private float MaxLookUp = 55;
     [ExportGroup("Camera/Zooming")]
@@ -46,22 +46,19 @@ public partial class Player : CharacterBody3D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        if (Instance == null)
+        if (Instance.IsValid())
         {
-            Instance = this;
+            Instance.QueueFree();
         }
-        else if (Instance != this)
-        {//destroy this player if it is not the instanced player
-            this.QueueFree();
-        }
+        Instance = this;
 
         Input.MouseMode = Input.MouseModeEnum.Captured;
-        CoinStack.Player = this;
         _currentZoom = Cam.SpringLength;
         _currentMovementSpeed = MovementSpeed;
 
         if (GameSettings.Instance != null && GameSettings.Instance.HasDoneSetup == true)
         {
+            GD.Print("setting look sensitivity to: " + GameSettings.Instance.Sensitivity);
             LookSensitivity = GameSettings.Instance.Sensitivity;
         }
     }

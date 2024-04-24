@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhqx7jkhhgydu"]
+[gd_scene load_steps=6 format=3 uid="uid://bhqx7jkhhgydu"]
 
 [ext_resource type="Script" path="res://scripts/UI/MainMenu.cs" id="1_1unus"]
 [ext_resource type="Texture2D" uid="uid://dr76t54i5ltka" path="res://textures/main menu/design.png" id="1_4cf2s"]
+[ext_resource type="Theme" uid="uid://dq6avs53fruwb" path="res://new_theme.tres" id="1_32qdf"]
 [ext_resource type="FontFile" uid="uid://dbref88chqpuh" path="res://fonts/VCR_OSD_MONO_1.001.ttf" id="3_1jyiv"]
 [ext_resource type="PackedScene" uid="uid://b4bsfv2nwghd4" path="res://prefabs/OptionsUI.tscn" id="4_wuinc"]
 
@@ -14,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_32qdf")
 script = ExtResource("1_1unus")
 StartButton = NodePath("menu items/StartButton")
 SettingsButton = NodePath("menu items/OptionsButton")
@@ -71,5 +73,6 @@ theme_override_fonts/font = ExtResource("3_1jyiv")
 theme_override_font_sizes/font_size = 24
 text = "Quit"
 
-[node name="Options" parent="." instance=ExtResource("4_wuinc")]
+[node name="Options" parent="." node_paths=PackedStringArray("GoBackFocus") instance=ExtResource("4_wuinc")]
 layout_mode = 1
+GoBackFocus = NodePath("../menu items/OptionsButton")

@@ -3,7 +3,6 @@ using System;
 
 public partial class dev_DialogTest : Node
 {
-    [Export] private Player player;
 
     private bool _firstFrame = true;
     private string GameUINonMenuNode = "/root/GameUI/Non-main menu";
@@ -12,7 +11,7 @@ public partial class dev_DialogTest : Node
     private DialogUI dialog;
     public override void _Ready()
     {
-        player.MayDoStuff = false;
+        Player.Instance.MayDoStuff = false;
         _sceneFade = GetNode<SceneFade>(SceneFade.TREE);
         _sceneFade.FadeFromScene();
         dialog = GetNode<DialogUI>(DialogUI.TREE);
@@ -37,7 +36,7 @@ public partial class dev_DialogTest : Node
             if (dialog.FinishedDialog == true)
             {
                 GetNode<HudUI>(HudUI.TREE).Visible = true;
-                player.MayDoStuff = true;
+                Player.Instance.MayDoStuff = true;
                 GD.Print($"time: {GameTimer.Instance.Time}({GameTimer.Instance.RawTime})");
                 GameTimer.Instance.StartTimer(true);
                 Enabled = false;

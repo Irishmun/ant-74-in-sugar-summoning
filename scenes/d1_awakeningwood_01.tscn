@@ -58,9 +58,8 @@ _data = {
 "win": SubResource("Animation_83lsm")
 }
 
-[node name="D1Awakeningwood01" type="Node3D" node_paths=PackedStringArray("player")]
+[node name="D1Awakeningwood01" type="Node3D"]
 script = ExtResource("1_fqp00")
-player = NodePath("player")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.848921, 0.198739, -0.489731, -0.00187588, 0.927735, 0.373234, 0.528517, -0.315928, 0.787946, 0, 4.29522, 0)
@@ -166,12 +165,9 @@ shape = SubResource("BoxShape3D_1w5to")
 [node name="aura" parent="Goals" instance=ExtResource("8_oipa7")]
 transform = Transform3D(0.572422, 0, -0.179814, 0, 1, 0, 0.179814, 0, 0.572422, 4.34705, 0.6, -0.34433)
 
-[node name="Objective" type="Area3D" parent="Goals" node_paths=PackedStringArray("player")]
+[node name="Objective" type="Area3D" parent="Goals"]
 transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 4.34705, 0.6, -0.34433)
 script = ExtResource("9_ga0kq")
-player = NodePath("../../player")
-CoinWinCount = 11
-WinValue = 20000
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Goals/Objective"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32932, 0)

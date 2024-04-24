@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 public partial class CoinObjective : Area3D
 {
-    [Export] private Player player;
-    [Export] private int CoinWinCount = 3;
-    [Export] private int WinValue = 400;//cents
+    [Export] private int CoinWinCount = 11;
+    [Export] private int WinValue = 20000;//cents
     [Export] private string WinScene = "d1_awakeningwood_02";
 
     private List<Coin> _coins = new List<Coin>();
@@ -78,7 +77,7 @@ public partial class CoinObjective : Area3D
             GameTimer.Instance.StopTimer();
             GD.PrintRich("[rainbow][wave]You Win![/wave][/rainbow]");
             GD.Print($"final time: {GameTimer.Instance.Time}({GameTimer.Instance.RawTime})");
-            player.MayDoStuff = false;
+            Player.Instance.MayDoStuff = false;
             SceneFade fade = GetNode<SceneFade>(SceneFade.TREE);
             fade.SceneName = WinScene;
             fade.FadeToScene();

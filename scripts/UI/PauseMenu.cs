@@ -20,19 +20,26 @@ public partial class PauseMenu : Control
 
     public override void _UnhandledInput(InputEvent e)
     {
+
+        if (GetTree().Paused == true)
+        {
+            ShowHideCursorIfMouse(e);
+        }
         if (e.IsActionPressed("Pause"))
         {
             GD.Print("pause key pressed");
             if (OptionsNode.Visible == true)
             {//we are in options mode
                 GD.Print("hiding options");
+                MainPauseNode.Visible = true;
+                OptionsButton.GrabFocus();
                 OptionsNode.Visible = false;
                 return;
             }
             if (this.Visible == true)
             {
                 GD.Print("unpausing");
-                Input.MouseMode = Input.MouseModeEnum.Captured;
+                ShowHideCursorIfMouse(e, false);
                 this.Visible = false;
                 GetTree().Paused = false;
                 GameTimer.Instance.StartTimer();
@@ -42,8 +49,9 @@ public partial class PauseMenu : Control
                 GD.Print("pausing");
                 this.Visible = true;
                 //MainPauseNode.Visible = true;
+                ResumeButton.GrabFocus();
                 OptionsNode.Visible = false;
-                Input.MouseMode = Input.MouseModeEnum.Visible;
+                ShowHideCursorIfMouse(e);
                 GameTimer.Instance.StopTimer();
                 GetTree().Paused = true;
             }
@@ -66,10 +74,26 @@ public partial class PauseMenu : Control
 
     private void SettingsButton_Pressed()
     {
-        GD.PrintRich("[shake]not implemented[/shake]");
-        OptionsNode.Visible = true;
-        //MainPauseNode.Visible = false;
+        //GD.PrintRich("[shake]not implemented[/shake]");
+        OptionsNode.BecomeVisible();
+        OptionsButton.ReleaseFocus();
+        MainPauseNode.Visible = false;
+        //OptionsNode.Visible = true;
     }
 
-
+    private void ShowHideCursorIfMouse(InputEvent e, bool show = true)
+    {
+        if (e is InputEventJoypadButton || e is InputEventJoypadMotion)
+        {//controller, hide mouse
+            Input.MouseMode = Input.MouseModeEnum.Captured;
+            return;
+        }
+        if (show == true)
+        {
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+            return;
+        }
+        Input.MouseMode = Input.MouseModeEnum.Captured;
+        return;
+    }
 }

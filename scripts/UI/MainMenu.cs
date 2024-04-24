@@ -31,6 +31,8 @@ public partial class MainMenu : Control
         StartButton.Pressed += StartButton_Pressed;
         SettingsButton.Pressed += SettingsButton_Pressed;
         QuitButton.Pressed += QuitButton_Pressed;
+
+        StartButton.GrabFocus();
     }
     #region Button Events
     private void StartButton_Pressed()
@@ -43,7 +45,7 @@ public partial class MainMenu : Control
     }
     private void SettingsButton_Pressed()
     {
-        OptionsMenu.Visible = true;
+        OptionsMenu.BecomeVisible();
     }
     private void QuitButton_Pressed()
     {

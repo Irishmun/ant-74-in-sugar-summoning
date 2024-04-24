@@ -28,7 +28,7 @@ public partial class GameSettings : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        if (Instance == null)
+        if (Instance.IsValid() == false)
         { Instance = this; }
         ReadFromFile();
         if (HasDoneSetup == true)
@@ -197,7 +197,7 @@ public partial class GameSettings : Node
         {
             if (float.TryParse(dict[key], out float res))
             {
-                GD.Print("parsed " + key);
+                GD.Print($"parsed \"{key}\" with value: {val}");
                 val = res;
             }
         }

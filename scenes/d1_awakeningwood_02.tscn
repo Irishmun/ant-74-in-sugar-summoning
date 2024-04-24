@@ -85,7 +85,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_epn2u")
 QuitButton = NodePath("HBoxContainer/QuitButton")
-MenuButton = NodePath("HBoxContainer/MainMenuButton")
+MenuButton = NodePath("HBoxContainer/TryAgainButton")
 timeLabel = NodePath("RichTextLabel/TimerLabel")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control"]
@@ -128,7 +128,7 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="MainMenuButton" type="Button" parent="Control/HBoxContainer"]
+[node name="TryAgainButton" type="Button" parent="Control/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("7_1dicp")
 theme_override_font_sizes/font_size = 32

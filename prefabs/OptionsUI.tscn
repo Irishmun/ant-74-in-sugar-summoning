@@ -8,7 +8,7 @@
 font_size = 41
 
 [node name="Options" type="Control" node_paths=PackedStringArray("GoBackButton", "ApplyButton", "MasterVolumeSlider", "MasterVolumeLabel", "SFXVolumeSlider", "SFXVolumeLabel", "PlayerVolumeSlider", "PlayerVolumeLabel", "AmbientVolumeSlider", "AmbientVolumeLabel", "FullScreenOptions", "AntiAliasingOptions", "SSAOCheck", "SSRCheck", "SSILCheck", "SDFGICheck", "BloomCheck", "SensitivitySlider", "SensitivityLabel")]
-process_mode = 2
+process_mode = 3
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -74,13 +74,16 @@ offset_right = 0.249939
 offset_bottom = 0.0799866
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+focus_neighbor_top = NodePath("../GoBackButton")
 clip_tabs = false
 use_hidden_tabs_for_min_size = true
 
 [node name="Audio" type="Control" parent="TabContainer"]
-visible = false
 layout_mode = 2
+focus_neighbor_left = NodePath("../Gameplay")
+focus_neighbor_top = NodePath("../../GoBackButton")
+focus_neighbor_right = NodePath("../Graphics")
+focus_neighbor_bottom = NodePath("VBoxContainer/MasterVolumeContainer/MasterVolumeSlider")
 mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio"]
@@ -115,6 +118,8 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../..")
+focus_neighbor_bottom = NodePath("../../PlayerVolumeContainer/PlayerVolumeSlider")
 mouse_filter = 1
 value = 50.0
 
@@ -138,6 +143,8 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../MasterVolumeContainer/MasterVolumeSlider")
+focus_neighbor_bottom = NodePath("../../SFXVolumeContainer/SFXVolumeSlider")
 mouse_filter = 1
 value = 50.0
 
@@ -161,6 +168,8 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../PlayerVolumeContainer/PlayerVolumeSlider")
+focus_neighbor_bottom = NodePath("../../AmbientVolumeContainer2/AmbientVolumeSlider")
 mouse_filter = 1
 value = 50.0
 
@@ -184,11 +193,18 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../SFXVolumeContainer/SFXVolumeSlider")
+focus_neighbor_bottom = NodePath("../../../../../ApplySettingsButton")
 mouse_filter = 1
 value = 50.0
 
 [node name="Graphics" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
+focus_neighbor_left = NodePath("../Audio")
+focus_neighbor_top = NodePath("../../GoBackButton")
+focus_neighbor_right = NodePath("../Gameplay")
+focus_neighbor_bottom = NodePath("VBoxContainer/FullscreenSetting/OptionButton")
 mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics"]
@@ -213,6 +229,8 @@ text = "Display Mode:"
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Graphics/VBoxContainer/FullscreenSetting"]
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_top = NodePath("../../..")
+focus_neighbor_bottom = NodePath("../../AntiAliasing/OptionButton")
 mouse_filter = 1
 flat = true
 alignment = 2
@@ -237,6 +255,8 @@ text = "Anti-Aliasing"
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Graphics/VBoxContainer/AntiAliasing"]
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_top = NodePath("../../FullscreenSetting/OptionButton")
+focus_neighbor_bottom = NodePath("../../SSAOSettingContainer/SSAOCheckBox")
 mouse_filter = 1
 flat = true
 alignment = 2
@@ -271,6 +291,8 @@ text = "Screen-Space Ambient Occlusion:"
 [node name="SSAOCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SSAOSettingContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_top = NodePath("../../AntiAliasing/OptionButton")
+focus_neighbor_bottom = NodePath("../../SSRSettingContainer/SSRCheckBox")
 mouse_filter = 1
 button_pressed = true
 text = "Enabled"
@@ -286,6 +308,8 @@ text = "Screen-Space Reflections:"
 [node name="SSRCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SSRSettingContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_top = NodePath("../../SSAOSettingContainer/SSAOCheckBox")
+focus_neighbor_bottom = NodePath("../../SSILSettingContainer2/SSILCheckBox")
 mouse_filter = 1
 button_pressed = true
 text = "Enabled"
@@ -301,6 +325,8 @@ text = "Screen-Space Indirect Lighting:"
 [node name="SSILCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SSILSettingContainer2"]
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_top = NodePath("../../SSRSettingContainer/SSRCheckBox")
+focus_neighbor_bottom = NodePath("../../SDFGISettingContainer3/SDFGICheckBox")
 mouse_filter = 1
 button_pressed = true
 text = "Enabled"
@@ -316,6 +342,8 @@ text = "Advanced Lighting (SDFGI):"
 [node name="SDFGICheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/SDFGISettingContainer3"]
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_top = NodePath("../../SSILSettingContainer2/SSILCheckBox")
+focus_neighbor_bottom = NodePath("../../BloomSettingContainer/BloomCheckBox")
 mouse_filter = 1
 button_pressed = true
 text = "Enabled"
@@ -331,6 +359,8 @@ text = "Bloom:"
 [node name="BloomCheckBox" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/BloomSettingContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_top = NodePath("../../SDFGISettingContainer3/SDFGICheckBox")
+focus_neighbor_bottom = NodePath("../../../../../ApplySettingsButton")
 mouse_filter = 1
 button_pressed = true
 text = "Enabled"
@@ -338,6 +368,8 @@ text = "Enabled"
 [node name="Gameplay" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
+focus_neighbor_top = NodePath("../../GoBackButton")
+focus_neighbor_bottom = NodePath("VBoxContainer/SFXVolumeContainer/SensitivitySlider")
 mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Gameplay"]
@@ -370,6 +402,8 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../..")
+focus_neighbor_bottom = NodePath("../../../../../ApplySettingsButton")
 mouse_filter = 1
 max_value = 1.0
 step = 0.01

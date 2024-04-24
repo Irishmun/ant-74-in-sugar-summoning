@@ -10,7 +10,7 @@ public partial class GameTimer : Node
 
     public override void _Ready()
     {
-        if (Instance == null)
+        if (Instance.IsValid() == false)
         {
             Instance = this;
             ResetTimer();

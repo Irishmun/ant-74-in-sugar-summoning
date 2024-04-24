@@ -4306,7 +4306,6 @@ CoinStack = NodePath("Antstronaut/Pickup Area")
 FloorCast = NodePath("RayCast3D")
 RotationSpeed = 10.0
 ControllerMultiplier = 10.0
-LookSensitivity = 0.5
 
 [node name="Antstronaut" parent="." instance=ExtResource("1_oyyv7")]
 

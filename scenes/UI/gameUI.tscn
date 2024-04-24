@@ -202,6 +202,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("11_8lrak")
 
 [node name="Non-main menu" type="Control" parent="."]
 layout_mode = 1
@@ -507,6 +508,8 @@ alignment = 1
 
 [node name="ResumeButton" type="Button" parent="Non-main menu/pauseMenu/MainPause/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../OptionsButton")
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme = ExtResource("11_8lrak")
@@ -514,6 +517,8 @@ text = "Resume"
 
 [node name="OptionsButton" type="Button" parent="Non-main menu/pauseMenu/MainPause/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../ResumeButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme = ExtResource("11_8lrak")
@@ -521,14 +526,18 @@ text = "Options"
 
 [node name="QuitButton" type="Button" parent="Non-main menu/pauseMenu/MainPause/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../OptionsButton")
+focus_neighbor_bottom = NodePath("../ResumeButton")
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme = ExtResource("11_8lrak")
 text = "Quit"
 
-[node name="Options" parent="Non-main menu/pauseMenu" instance=ExtResource("12_kjiun")]
+[node name="Options" parent="Non-main menu/pauseMenu" node_paths=PackedStringArray("GoBackFocus", "GoBackParent") instance=ExtResource("12_kjiun")]
 visible = false
 layout_mode = 1
+GoBackFocus = NodePath("../MainPause/VBoxContainer/OptionsButton")
+GoBackParent = NodePath("../MainPause")
 
 [node name="Loading" type="Control" parent="." node_paths=PackedStringArray("_loadingImage")]
 layout_mode = 1

@@ -11,7 +11,6 @@ public partial class CoinStack : Area3D
     [Export] private CollisionShape3D StackCollider;
 
     private List<Coin> _coins = new List<Coin>();
-    private Player _player;
     private List<Coin> _coinsInArea = new List<Coin>();
     private HudUI _hud;
     private float _stackWeight = 0, _stackHeight = 0, _startCollisionRadius = 0;
@@ -59,7 +58,7 @@ public partial class CoinStack : Area3D
 
     public override void _Input(InputEvent e)
     {
-        if (_player.MayDoStuff == false)
+        if (Player.Instance.MayDoStuff == false)
         { return; }
         if (e.IsActionPressed("Use"))
         {
@@ -130,29 +129,29 @@ public partial class CoinStack : Area3D
     private void MakePlayerHoldCoins()
     {
         GD.Print($"player holding {_coins.Count} coins");
-        _player.IsHoldingCoins = _coins.Count > 0;
+        Player.Instance.IsHoldingCoins = _coins.Count > 0;
     }
 
     private void UpdatePlayerSpeed()
     {
         GD.Print("player carrying " + _stackWeight + "kg in coins");
-        float remapped = _player.RunSpeedValue;
+        float remapped = Player.Instance.RunSpeedValue;
         if (_stackWeight < MinCarryWeight)//no need to calculate below threshold
         {
-            remapped = _player.RunSpeedValue;
+            remapped = Player.Instance.RunSpeedValue;
         }
         else if (_stackWeight > MaxCarryWeight)//no need to calculate beyond limit
         {
-            remapped = _player.WalkSpeedValue;
+            remapped = Player.Instance.WalkSpeedValue;
         }
         else
         {
             //remap method
-            remapped = (_stackWeight - MinCarryWeight) / (MaxCarryWeight - MinCarryWeight) * (_player.WalkSpeedValue - _player.RunSpeedValue) + _player.RunSpeedValue;
-            remapped = Mathf.Clamp(remapped, _player.WalkSpeedValue, _player.RunSpeedValue);
+            remapped = (_stackWeight - MinCarryWeight) / (MaxCarryWeight - MinCarryWeight) * (Player.Instance.WalkSpeedValue - Player.Instance.RunSpeedValue) + Player.Instance.RunSpeedValue;
+            remapped = Mathf.Clamp(remapped, Player.Instance.WalkSpeedValue, Player.Instance.RunSpeedValue);
         }
         GD.Print("setting player speed to: " + remapped);
-        _player.ChangeMovementSpeed(remapped);
+        Player.Instance.ChangeMovementSpeed(remapped);
     }
 
     private void UpdateStackCollider()
@@ -184,5 +183,4 @@ public partial class CoinStack : Area3D
         _hud.HeldCoins = _coins;
         _hud.UpdateLabel();
     }
-    public Player Player { get => _player; set => _player = value; }
 }

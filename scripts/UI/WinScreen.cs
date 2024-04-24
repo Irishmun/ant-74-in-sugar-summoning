@@ -5,6 +5,7 @@ public partial class WinScreen : Node
 {
     [Export] Button QuitButton, MenuButton;
     [Export] Label timeLabel;
+    [Export] private string TryAgainScene = "d1_awakeningwood_01";
     
 
     // Called when the node enters the scene tree for the first time.
@@ -17,6 +18,7 @@ public partial class WinScreen : Node
         QuitButton.Pressed += QuitButton_Pressed;
         MenuButton.Pressed += MenuButton_Pressed;
         timeLabel.Text = "Time: " + GameTimer.Instance.TimeString();
+        MenuButton.GrabFocus();
     }
 
     private void MenuButton_Pressed()
@@ -24,7 +26,7 @@ public partial class WinScreen : Node
         GameTimer.Instance.ResetTimer();
         SceneFade fade = GetNode<SceneFade>(SceneFade.TREE);
         GetNode<DialogUI>(DialogUI.TREE).Init();
-        fade.SceneName = "d1_awakeningwood_01";
+        fade.SceneName = TryAgainScene;
         fade.FadeToScene();        
     }
 
