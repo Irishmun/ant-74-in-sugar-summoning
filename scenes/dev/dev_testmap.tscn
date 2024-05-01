@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://blw6aaeh8eaoj"]
+[gd_scene load_steps=26 format=3 uid="uid://blw6aaeh8eaoj"]
 
 [ext_resource type="Texture2D" uid="uid://c55m78dlln5v2" path="res://textures/hdris/meadow_2_2k.exr" id="2_a6kca"]
 [ext_resource type="Script" path="res://scripts/EnvironmentSettings.cs" id="2_kvspf"]
@@ -32,6 +32,10 @@ ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
 volumetric_fog_detail_spread = 0.615572
+
+[sub_resource type="PrismMesh" id="PrismMesh_iqvdm"]
+left_to_right = 0.0
+size = Vector3(2, 1, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1w5to"]
 size = Vector3(0.849341, 8.51071, 0.2)
@@ -98,6 +102,18 @@ material_override = ExtResource("3_54noc")
 use_collision = true
 size = Vector3(10, 1, 10)
 
+[node name="CSGBox3D3" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0.5, 6.5)
+material_override = ExtResource("3_54noc")
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, 6.5)
+material_override = ExtResource("3_54noc")
+use_collision = true
+mesh = SubResource("PrismMesh_iqvdm")
+
 [node name="player" parent="." instance=ExtResource("6_vhbwn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.919, 0, -3.726)
 
@@ -152,7 +168,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.34736, 0.790103, 0.244263)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.53749, 0.660636, 2.45948)
 
 [node name="ent_1euro8" parent="Coins" instance=ExtResource("7_41dbc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.502, 0.243201, 1.12484)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.302, 1.0432, 1.02484)
 
 [node name="ent_2euro10" parent="Coins" instance=ExtResource("8_v7ofh")]
 transform = Transform3D(0.692156, 0, 0.721748, 0, 1, 0, -0.721748, 0, 0.692156, -5.57355, 0.481396, -0.5509)

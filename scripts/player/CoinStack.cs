@@ -119,6 +119,7 @@ public partial class CoinStack : Area3D
         coin.GlobalPosition += GetForward(coin);
         GD.Print($"coin new position: {coin.GlobalPosition}");
         coin.ProcessMode = ProcessModeEnum.Pausable;
+        coin.WakeCoin();
 
         if (_coins.Count == 0)
         {
