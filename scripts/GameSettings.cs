@@ -177,7 +177,7 @@ public partial class GameSettings : Node
 
     private void SetDefaults()
     {//all default values used in development
-        _sensitivity = 0.5f;
+        _sensitivity = 0.25f;
         _masterVolume = 1;
         _sfxVolume = 1;
         _playerVolume = 1;

@@ -1,10 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://1w67tk2w6k1f"]
+[gd_scene load_steps=19 format=3 uid="uid://1w67tk2w6k1f"]
 
 [ext_resource type="Script" path="res://scripts/dev_DialogTest.cs" id="1_fqp00"]
-[ext_resource type="Texture2D" uid="uid://c55m78dlln5v2" path="res://textures/hdris/meadow_2_2k.exr" id="1_queea"]
+[ext_resource type="PackedScene" uid="uid://dtonvan75lxq4" path="res://prefabs/world.tscn" id="2_j3jac"]
 [ext_resource type="PackedScene" uid="uid://cfl7pm5dtk8ma" path="res://models/awakening_woods/awakening_wood.tscn" id="2_uuxad"]
 [ext_resource type="PackedScene" uid="uid://dlkv0vdobu40k" path="res://prefabs/player.tscn" id="3_16aoi"]
-[ext_resource type="Script" path="res://scripts/EnvironmentSettings.cs" id="3_jmjgj"]
 [ext_resource type="PackedScene" uid="uid://34m4bpcuop4a" path="res://prefabs/ent_1euro.tscn" id="4_avxxc"]
 [ext_resource type="PackedScene" uid="uid://bx1ge8c71yuhf" path="res://models/awakening_woods/awakening_wood_walls.tscn" id="4_q8g2j"]
 [ext_resource type="AudioStream" uid="uid://rswjgv6hwbj6" path="res://audio/environment/ambience.ogg" id="4_w74ti"]
@@ -12,26 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://ct1q23omoglug" path="res://models/trade sign/tradedeal.glb" id="7_6m8ab"]
 [ext_resource type="PackedScene" uid="uid://1lg4n13s61nm" path="res://models/aura/aura.glb" id="8_oipa7"]
 [ext_resource type="Script" path="res://scripts/CoinObjective.cs" id="9_ga0kq"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bgpty"]
-panorama = ExtResource("1_queea")
-
-[sub_resource type="Sky" id="Sky_5ijb4"]
-sky_material = SubResource("PanoramaSkyMaterial_bgpty")
-
-[sub_resource type="Environment" id="Environment_sp17v"]
-background_mode = 2
-sky = SubResource("Sky_5ijb4")
-ambient_light_source = 3
-reflected_light_source = 2
-tonemap_mode = 2
-tonemap_exposure = 0.7
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
-sdfgi_enabled = true
-glow_enabled = true
-volumetric_fog_detail_spread = 0.615572
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1w5to"]
 size = Vector3(0.849341, 8.51071, 0.2)
@@ -61,14 +40,7 @@ _data = {
 [node name="D1Awakeningwood01" type="Node3D"]
 script = ExtResource("1_fqp00")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.848921, 0.198739, -0.489731, -0.00187588, 0.927735, 0.373234, 0.528517, -0.315928, 0.787946, 0, 4.29522, 0)
-light_color = Color(1, 0.937255, 0.792157, 1)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_sp17v")
-script = ExtResource("3_jmjgj")
+[node name="World" parent="." instance=ExtResource("2_j3jac")]
 
 [node name="Terrain" type="Node" parent="."]
 

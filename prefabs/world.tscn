@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtonvan75lxq4"]
+
+[ext_resource type="Texture2D" uid="uid://c55m78dlln5v2" path="res://textures/hdris/meadow_2_2k.exr" id="1_e5q1f"]
+[ext_resource type="Script" path="res://scripts/EnvironmentSettings.cs" id="2_3i2es"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8dqyv"]
+panorama = ExtResource("1_e5q1f")
+
+[sub_resource type="Sky" id="Sky_5ijb4"]
+sky_material = SubResource("PanoramaSkyMaterial_8dqyv")
+
+[sub_resource type="Environment" id="Environment_cwau3"]
+background_mode = 2
+sky = SubResource("Sky_5ijb4")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_exposure = 0.7
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_detail_spread = 0.615572
+
+[node name="World" type="Node3D"]
+transform = Transform3D(0.848921, 0.198739, -0.489731, -0.00187588, 0.927735, 0.373235, 0.528517, -0.315928, 0.787946, 0, 4.29522, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+light_color = Color(1, 0.937255, 0.792157, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cwau3")
+script = ExtResource("2_3i2es")
