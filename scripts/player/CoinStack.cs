@@ -148,7 +148,7 @@ public partial class CoinStack : Area3D
         else
         {
             //remap method
-            remapped = (_stackWeight - MinCarryWeight) / (MaxCarryWeight - MinCarryWeight) * (Player.Instance.WalkSpeedValue - Player.Instance.RunSpeedValue) + Player.Instance.RunSpeedValue;
+            remapped = _stackWeight.Remap(MinCarryWeight, MaxCarryWeight, Player.Instance.WalkSpeedValue, Player.Instance.RunSpeedValue);
             remapped = Mathf.Clamp(remapped, Player.Instance.WalkSpeedValue, Player.Instance.RunSpeedValue);
         }
         GD.Print("setting player speed to: " + remapped);

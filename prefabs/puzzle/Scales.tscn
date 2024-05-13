@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://io6jfgvyx0bc"]
+
+[ext_resource type="Script" path="res://scripts/puzzle/Scales.cs" id="1_b5ed7"]
+[ext_resource type="Material" uid="uid://b71u8qrpvjwqr" path="res://scenes/dev/dev_tex.tres" id="1_k6xyw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s6w4v"]
+size = Vector3(1.5, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l7rb5"]
+size = Vector3(1.5, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_atr2q"]
+size = Vector3(1.45, 0.69, 0.95)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vr1gr"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.5
+
+[node name="Scales" type="Node3D" node_paths=PackedStringArray("ScaleTopNode", "LeftScaleNode", "LeftScaleArea", "RightScaleNode", "RightScaleArea")]
+script = ExtResource("1_b5ed7")
+ScaleTopNode = NodePath("MeshInstance3D")
+LeftScaleNode = NodePath("LeftScale")
+LeftScaleArea = NodePath("LeftScale/MeshInstance3D/Area3D")
+RightScaleNode = NodePath("RightScale")
+RightScaleArea = NodePath("RightScale/MeshInstance3D2/Area3D2")
+
+[node name="LeftScale" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LeftScale"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+material_override = ExtResource("1_k6xyw")
+mesh = SubResource("BoxMesh_s6w4v")
+
+[node name="RightAnimateable" type="RigidBody3D" parent="LeftScale/MeshInstance3D"]
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+freeze = true
+freeze_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftScale/MeshInstance3D/RightAnimateable"]
+shape = SubResource("BoxShape3D_l7rb5")
+
+[node name="Area3D" type="Area3D" parent="LeftScale/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+input_ray_pickable = false
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="LeftScale/MeshInstance3D/Area3D"]
+shape = SubResource("BoxShape3D_atr2q")
+
+[node name="RightScale" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RightScale"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+material_override = ExtResource("1_k6xyw")
+mesh = SubResource("BoxMesh_s6w4v")
+skeleton = NodePath("../../LeftScale")
+
+[node name="LeftAnimateable" type="RigidBody3D" parent="RightScale/MeshInstance3D2"]
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+freeze = true
+freeze_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightScale/MeshInstance3D2/LeftAnimateable"]
+shape = SubResource("BoxShape3D_l7rb5")
+
+[node name="Area3D2" type="Area3D" parent="RightScale/MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+input_ray_pickable = false
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RightScale/MeshInstance3D2/Area3D2"]
+shape = SubResource("BoxShape3D_atr2q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.759, -0.5)
+material_override = ExtResource("1_k6xyw")
+mesh = SubResource("CylinderMesh_vr1gr")

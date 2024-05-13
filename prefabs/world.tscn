@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dtonvan75lxq4"]
 
 [ext_resource type="Texture2D" uid="uid://c55m78dlln5v2" path="res://textures/hdris/meadow_2_2k.exr" id="1_e5q1f"]
-[ext_resource type="Script" path="res://scripts/EnvironmentSettings.cs" id="2_3i2es"]
+[ext_resource type="Script" path="res://scripts/settings/EnvironmentSettings.cs" id="2_3i2es"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8dqyv"]
 panorama = ExtResource("1_e5q1f")

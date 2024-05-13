@@ -6,7 +6,5 @@
 resource_name = "m22"
 cull_mode = 2
 albedo_texture = ExtResource("1_cx7re")
-metallic = 0.5
-roughness = 0.5
 uv1_triplanar = true
 uv1_world_triplanar = true

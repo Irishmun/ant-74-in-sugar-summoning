@@ -31,7 +31,7 @@ public partial class Coin : RigidBody3D
     {
         if (Freeze == true)
         { return; }
-        GD.Print($"{Name} Velocity: {LinearVelocity.Length()} ({_t})");
+        //GD.Print($"{Name} Velocity: {LinearVelocity.Length()} ({_t})");
 
         //check if velocity is below threshold for more than specific time
         //(set time to 0 if velocity > threshold, start timer if velocity <= threshold)
@@ -45,7 +45,7 @@ public partial class Coin : RigidBody3D
         //if time exceeded, disabled rigidbody process
         if (_t >= TimeBeforeSleep)
         {
-            GD.Print(Name + " started sleeping");
+            //GD.Print(Name + " started sleeping");
             Freeze = true;
         }
 
@@ -61,7 +61,7 @@ public partial class Coin : RigidBody3D
     {
         _t = 0;
         Freeze = false;
-        GD.Print(Name + " woken up");
+        //GD.Print(Name + " woken up");
     }
 
     public float Height => _height;

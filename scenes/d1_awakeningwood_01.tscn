@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cuqj7c0ewhmkk" path="res://prefabs/ent_2euro.tscn" id="5_ebuob"]
 [ext_resource type="PackedScene" uid="uid://ct1q23omoglug" path="res://models/trade sign/tradedeal.glb" id="7_6m8ab"]
 [ext_resource type="PackedScene" uid="uid://1lg4n13s61nm" path="res://models/aura/aura.glb" id="8_oipa7"]
-[ext_resource type="Script" path="res://scripts/CoinObjective.cs" id="9_ga0kq"]
+[ext_resource type="Script" path="res://scripts/game/CoinObjective.cs" id="9_ga0kq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1w5to"]
 size = Vector3(0.849341, 8.51071, 0.2)

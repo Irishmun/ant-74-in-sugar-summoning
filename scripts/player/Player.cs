@@ -2,6 +2,8 @@ using Godot;
 
 public partial class Player : CharacterBody3D
 {
+    private const float TERMINAL_VELOCITY = -53.645f;//200mph in m/s according to FAI SKYDIVING COMMISSION
+
     public static Player Instance { get; private set; }
 
     [ExportGroup("Nodes")]
@@ -61,6 +63,13 @@ public partial class Player : CharacterBody3D
             GD.Print("setting look sensitivity to: " + GameSettings.Instance.Sensitivity);
             LookSensitivity = GameSettings.Instance.Sensitivity;
         }
+
+        //set player mesh rotation
+        Vector3 rotation = new Vector3(0, GlobalRotation.Y, 0);
+        MeshRoot.Rotation = rotation;
+        rotation.Y += Mathf.Pi;
+        CamRoot.Rotation = rotation;
+        GlobalRotation = Vector3.Zero;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -111,7 +120,7 @@ public partial class Player : CharacterBody3D
             _direction = new Vector3(_inputDir.X, 0, _inputDir.Y).Normalized();
             _direction = _direction.Rotated(Vector3.Up, CamRoot.GlobalRotation.Y);
         }
-        _velocity = new Vector3(_speed * _direction.X, 0, _speed * _direction.Z);
+        _velocity = new Vector3(_speed * _direction.X, _velocity.Y, _speed * _direction.Z);
 
         if (!onFloor)
         {
@@ -131,8 +140,14 @@ public partial class Player : CharacterBody3D
             else
             {
                 _velocity.Y -= _gravity * Mass * (float)delta;
+                _velocity.Y = Mathf.Clamp(_velocity.Y, TERMINAL_VELOCITY, 0);
             }
         }
+        else
+        {
+            _velocity.Y = 0;
+        }
+
 
         Velocity = _velocity;//Velocity.Lerp(_velocity, _acceleration * (float)delta);
         MoveAndSlide();
