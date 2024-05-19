@@ -7,10 +7,12 @@ public partial class CoinStack : Area3D
     [Export] private AudioStreamPlayer3D PickupStream;
     [Export] float MaxCarryWeight = 75;// rigidbody mass
     [Export] float MinCarryWeight = 20;//weight before penalty
-
+    [Export] private float CoinDisplaceMultiplier = .01f;
+    [Export] private float CoinDisplaceSpeed = 5f;
+    [Export] private Player player;
     [Export] private CollisionShape3D StackCollider;
 
-    private List<Coin> _coins = new List<Coin>();
+    private List<Coin> _heldCoins = new List<Coin>();
     private List<Coin> _coinsInArea = new List<Coin>();
     private HudUI _hud;
     private float _stackWeight = 0, _stackHeight = 0, _startCollisionRadius = 0;
@@ -25,18 +27,23 @@ public partial class CoinStack : Area3D
         _startCollisionRadius = (StackCollider.Shape as CylinderShape3D).Radius;
         UpdateStackCollider();
     }
-    public override void _ExitTree()
-    {
-        this.BodyEntered -= CoinStack_BodyEntered;
-        this.BodyExited -= CoinStack_BodyExited;
-    }
-    /*
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
-    {
+    {//TODO: ask others what they think off this, I'm not too sure about if I like it or not
         //move coins on stack
+        if (_heldCoins.Count <= 1)
+        { return; }
+        Vector3 offset = _heldCoins[0].Transform.Basis.Z * CoinDisplaceMultiplier;
+        offset = offset.Clamp(Vector3.Zero, player.Velocity.Abs()*CoinDisplaceMultiplier);
+        for (int i = 1; i < _heldCoins.Count; i++)
+        {
+            Vector3 coinPos = new Vector3(_heldCoins[i - 1].Position.X, _heldCoins[i].Position.Y, _heldCoins[i - 1].Position.Z);
+            coinPos -= offset;
+            _heldCoins[i].Position = _heldCoins[i].Position.Lerp(coinPos, (float)delta * CoinDisplaceSpeed);
+        }
     }
-    */
+
     private void CoinStack_BodyEntered(Node3D body)
     {
         //GD.Print(body.Name + " entered");
@@ -81,12 +88,12 @@ public partial class CoinStack : Area3D
     {
         _stackWeight += coin.Mass;
         _stackHeight += coin.Height;
-        _coins.Add(coin);
+        _heldCoins.Add(coin);
         UpdatePlayerSpeed();
         UpdateStackCollider();
         coin.ProcessMode = ProcessModeEnum.Disabled;
         coin.Rotation = Vector3.Zero;
-        if (_coins.Count == 1)
+        if (_heldCoins.Count == 1)
         {
             //coin.ProcessMode = ProcessModeEnum.Disabled;
             coin.Reparent(Stack, false);
@@ -95,7 +102,7 @@ public partial class CoinStack : Area3D
             MakePlayerHoldCoins();
             return;
         }
-        Coin last = _coins[_coins.Count - 2];
+        Coin last = _heldCoins[_heldCoins.Count - 2];
         coin.Reparent(last, false);
         coin.Position = new Vector3(0, last.Height, 0);
         //_coins.Add(coin);
@@ -103,14 +110,14 @@ public partial class CoinStack : Area3D
 
     public void RemoveTopCoinFromStack()
     {//TODO: replace coin position with somewhere either in front of player or behind player
-        if (_coins.Count == 0)
+        if (_heldCoins.Count == 0)
         { return; }
-        Coin coin = _coins[_coins.Count - 1];
-        GD.Print("removing coin from stack of size " + _coins.Count);
+        Coin coin = _heldCoins[_heldCoins.Count - 1];
+        GD.Print("removing coin from stack of size " + _heldCoins.Count);
 
         _stackWeight -= coin.Mass;
         _stackHeight -= coin.Height;
-        _coins.Remove(coin);
+        _heldCoins.Remove(coin);
 
         UpdatePlayerSpeed();
         UpdateStackCollider();
@@ -121,7 +128,7 @@ public partial class CoinStack : Area3D
         coin.ProcessMode = ProcessModeEnum.Pausable;
         coin.WakeCoin();
 
-        if (_coins.Count == 0)
+        if (_heldCoins.Count == 0)
         {
             MakePlayerHoldCoins();
         }
@@ -129,8 +136,8 @@ public partial class CoinStack : Area3D
 
     private void MakePlayerHoldCoins()
     {
-        GD.Print($"player holding {_coins.Count} coins");
-        Player.Instance.IsHoldingCoins = _coins.Count > 0;
+        GD.Print($"player holding {_heldCoins.Count} coins");
+        Player.Instance.IsHoldingCoins = _heldCoins.Count > 0;
     }
 
     private void UpdatePlayerSpeed()
@@ -161,7 +168,7 @@ public partial class CoinStack : Area3D
         CylinderShape3D stackShape = StackCollider.Shape as CylinderShape3D;
         _stackHeight = _stackHeight < 0 ? 0 : _stackHeight;
         stackShape.Height = _stackHeight;
-        if (_coins.Count <= 0)
+        if (_heldCoins.Count <= 0)
         {
             stackShape.Radius = 0;
         }
@@ -181,7 +188,7 @@ public partial class CoinStack : Area3D
 
     private void UpdateHud()
     {
-        _hud.HeldCoins = _coins;
+        _hud.HeldCoins = _heldCoins;
         _hud.UpdateLabel();
     }
 }

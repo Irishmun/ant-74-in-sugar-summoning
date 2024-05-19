@@ -4498,11 +4498,14 @@ gi_mode = 0
 modulate = Color(1, 1, 1, 0.901961)
 texture = ExtResource("3_bsfyh")
 
-[node name="Pickup Area" type="Area3D" parent="Antstronaut" node_paths=PackedStringArray("Stack", "PickupStream", "StackCollider")]
+[node name="Pickup Area" type="Area3D" parent="Antstronaut" node_paths=PackedStringArray("Stack", "PickupStream", "player", "StackCollider")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.19116)
 script = ExtResource("7_0kqoy")
 Stack = NodePath("../Money")
 PickupStream = NodePath("../../PickupStream")
+CoinDisplaceMultiplier = 0.005
+CoinDisplaceSpeed = 10.0
+player = NodePath("../..")
 StackCollider = NodePath("../../StackCollider")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Antstronaut/Pickup Area"]

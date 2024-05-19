@@ -70,7 +70,7 @@ public partial class Scales : Node
     {
 
         GD.Print(body.Name + " Exited left");
-        body.Reparent(_sceneRoot);
+        //body.Reparent(_sceneRoot);
         if (body is RigidBody3D)
         {
             _leftWeight -= ((RigidBody3D)body).Mass;
@@ -81,7 +81,7 @@ public partial class Scales : Node
     private void LeftScaleArea_BodyEntered(Node3D body)
     {
         GD.Print(body.Name + " Entered left");
-        body.Reparent(LeftScaleNode);
+        //body.Reparent(LeftScaleNode);
         if (body is RigidBody3D)
         {
             _leftWeight += ((RigidBody3D)body).Mass;
@@ -91,7 +91,7 @@ public partial class Scales : Node
     private void RightScaleArea_BodyExited(Node3D body)
     {
         GD.Print(body.Name + " Exited right");
-        body.Reparent(_sceneRoot);
+        //body.Reparent(_sceneRoot);
         if (body is RigidBody3D)
         {
             _rightWeight -= ((RigidBody3D)body).Mass;
@@ -101,7 +101,7 @@ public partial class Scales : Node
     private void RightScaleArea_BodyEntered(Node3D body)
     {
         GD.Print(body.Name + " Entered right");
-        body.Reparent(RightScaleNode);
+        //body.Reparent(RightScaleNode);
         if (body is RigidBody3D)
         {
             _rightWeight += ((RigidBody3D)body).Mass;
