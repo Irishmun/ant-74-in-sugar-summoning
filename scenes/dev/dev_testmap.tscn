@@ -127,7 +127,7 @@ shape = SubResource("BoxShape3D_ksmh1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="player" parent="." instance=ExtResource("6_vhbwn")]
-transform = Transform3D(-0.885564, 0, 0.464517, 0, 1, 0, -0.464517, 0, -0.885564, 6.29752, 6.03202, 8.89836)
+transform = Transform3D(0.841709, 0, -0.539931, 0, 1, 0, 0.539931, 0, 0.841709, 1.34978, 0, -2.05046)
 
 [node name="Coins" type="Node" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuqj7c0ewhmkk"]
+[gd_scene load_steps=7 format=3 uid="uid://cuqj7c0ewhmkk"]
 
 [ext_resource type="PackedScene" uid="uid://c4ucms4n2vp31" path="res://models/money/2euro.glb" id="1_htr37"]
 [ext_resource type="Script" path="res://scripts/entities/Coin.cs" id="2_1jh8e"]
@@ -14,7 +14,11 @@ streams_count = 1
 stream_0/stream = ExtResource("3_l41xa")
 stream_0/weight = 1.0
 
-[node name="ent_2euro" type="RigidBody3D" node_paths=PackedStringArray("audio")]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nwj6w"]
+height = 0.125
+radius = 0.55
+
+[node name="ent_2euro" type="RigidBody3D" node_paths=PackedStringArray("audio", "WakeShapeCast")]
 process_mode = 1
 mass = 8.5
 freeze_mode = 1
@@ -24,6 +28,7 @@ script = ExtResource("2_1jh8e")
 CentValue = 200
 CoinName = "2 Euro"
 audio = NodePath("AudioStreamPlayer3D")
+WakeShapeCast = NodePath("ShapeCast3D")
 
 [node name="2euro" parent="." instance=ExtResource("1_htr37")]
 
@@ -35,3 +40,9 @@ shape = SubResource("CylinderShape3D_6nnvv")
 stream = SubResource("AudioStreamRandomizer_yoaw1")
 max_distance = 5.0
 bus = &"SFX"
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.044, 0)
+shape = SubResource("CylinderShape3D_nwj6w")
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(1, 0, 0, 1)

@@ -35,7 +35,7 @@ public partial class CoinStack : Area3D
         if (_heldCoins.Count <= 1)
         { return; }
         Vector3 offset = _heldCoins[0].Transform.Basis.Z * CoinDisplaceMultiplier;
-        offset = offset.Clamp(Vector3.Zero, player.Velocity.Abs()*CoinDisplaceMultiplier);
+        offset = offset.Clamp(Vector3.Zero, player.Velocity.Abs() * CoinDisplaceMultiplier);
         for (int i = 1; i < _heldCoins.Count; i++)
         {
             Vector3 coinPos = new Vector3(_heldCoins[i - 1].Position.X, _heldCoins[i].Position.Y, _heldCoins[i - 1].Position.Z);
@@ -93,6 +93,7 @@ public partial class CoinStack : Area3D
         UpdateStackCollider();
         coin.ProcessMode = ProcessModeEnum.Disabled;
         coin.Rotation = Vector3.Zero;
+        coin.WakeSurrounding(true);
         if (_heldCoins.Count == 1)
         {
             //coin.ProcessMode = ProcessModeEnum.Disabled;
@@ -123,10 +124,10 @@ public partial class CoinStack : Area3D
         UpdateStackCollider();
         //reparent coin back to scene, set position to in front of player
         coin.Reparent(GetTree().CurrentScene, true);
-        coin.GlobalPosition += GetForward(coin);
+        coin.GlobalPosition = GetCoinDropSpot(coin);
         GD.Print($"coin new position: {coin.GlobalPosition}");
         coin.ProcessMode = ProcessModeEnum.Pausable;
-        coin.WakeCoin();
+        coin.WakeCoin(false);
 
         if (_heldCoins.Count == 0)
         {
@@ -190,5 +191,12 @@ public partial class CoinStack : Area3D
     {
         _hud.HeldCoins = _heldCoins;
         _hud.UpdateLabel();
+    }
+
+    private Vector3 GetCoinDropSpot(Coin coin)
+    {
+        Vector3 pos = player.GlobalPosition + GetForward(coin);
+        pos.Y = coin.GlobalPosition.Y;
+        return pos;
     }
 }

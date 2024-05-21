@@ -223,4 +223,5 @@ public partial class Player : CharacterBody3D
     public float RunSpeedValue { get => MovementSpeed; set => MovementSpeed = value; }
     public float WalkSpeedValue { get => WalkSpeed; set => WalkSpeed = value; }
     public float Sensitivity { get => LookSensitivity; set => LookSensitivity = value; }
+    public bool IsRunning => _isRunning;
 }

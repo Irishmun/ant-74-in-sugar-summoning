@@ -10,6 +10,7 @@ public partial class Coin : RigidBody3D
     [ExportGroup("Physics")]
     [Export] private float MinVelocityThreshold = 0.1f;
     [Export] private float TimeBeforeSleep = 1;
+    [Export] private ShapeCast3D WakeShapeCast;
 
     private double _t = 0;
 
@@ -51,18 +52,35 @@ public partial class Coin : RigidBody3D
 
     }
 
-    public void WakeSurrounding()
+    public void WakeSurrounding(bool recursive = true)
     {
-        //check for any coins nearby, wake them up to have it still update
-        //spherecast, wake all objects that are of type Coin
+#if DEBUG
+        int x = WakeShapeCast.GetCollisionCount();
+        GD.Print(Name + "is touching " + x + " coins.");
+#endif
+        for (int i = 0; i < WakeShapeCast.GetCollisionCount(); i++)
+        {
+            Node3D obj = WakeShapeCast.GetCollider(i) as Node3D;
+            GD.Print("Trying to wake object " + obj.Name);
+            Coin coin = obj as Coin;
+            if (coin == null)
+            { continue; }
+            if (coin.IsSleeping == false)
+            { continue; }
+            coin.WakeCoin(true);
+        }
     }
 
-    public void WakeCoin()
+    public void WakeCoin(bool wakeTouching = false)
     {
         _t = 0;
         Freeze = false;
         //GD.Print(Name + " woken up");
+        if (wakeTouching == false)
+        { return; }
+        WakeSurrounding();
     }
 
     public float Height => _height;
+    public bool IsSleeping => Freeze;
 }

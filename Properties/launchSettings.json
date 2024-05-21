@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Third-person-godot": {
+      "commandName": "Project"
+    },
+    "Attach to Godot": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\steef\\Documents\\Programs\\Godot\\Godot_win64.exe",
+      "commandLineArgs": "--path.--verbose",
+      "workingDirectory": ".",
+      "nativeDebugging": true
+    }
+  }
+}
