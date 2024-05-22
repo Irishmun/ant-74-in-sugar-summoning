@@ -18,6 +18,8 @@ public partial class CoinStack : Area3D
     private float _stackWeight = 0, _stackHeight = 0, _startCollisionRadius = 0;
     private Vector3 _localColliderStart;
 
+
+
     public override void _Ready()
     {
         this.BodyEntered += CoinStack_BodyEntered;
@@ -199,4 +201,9 @@ public partial class CoinStack : Area3D
         pos.Y = coin.GlobalPosition.Y;
         return pos;
     }
+
+    public List<Coin> HeldCoins => _heldCoins;
+    public float StackWeight => _stackWeight;
+    public float StackHeight => _stackHeight;
+    public float MaxStackWeight => MaxCarryWeight;
 }

@@ -1,4 +1,5 @@
 using Godot;
+using System.Text;
 
 public partial class Player : CharacterBody3D
 {
@@ -224,4 +225,50 @@ public partial class Player : CharacterBody3D
     public float WalkSpeedValue { get => WalkSpeed; set => WalkSpeed = value; }
     public float Sensitivity { get => LookSensitivity; set => LookSensitivity = value; }
     public bool IsRunning => _isRunning;
+
+#if DEBUG
+    public string DebugInfo
+    {
+        get
+        {
+            StringBuilder str = new StringBuilder();
+            str.AppendLine($"Name:{Name} ({this.GetInstanceId()})");
+            str.AppendLine($"Model: {MeshRoot.Name}");
+            str.AppendLine($"Sequence: {animator.CurrentAnimation}");
+            if (string.IsNullOrWhiteSpace(animator.CurrentAnimation))
+            {
+                str.AppendLine("Cycle: ");
+            }
+            else
+            {
+                str.AppendLine($"Cycle: {animator.CurrentAnimationPosition.ToString("0.00000")}");
+            }
+            str.AppendLine($"Vel: {Velocity.Length().ToString("0.00000")} ({Velocity})");
+            str.AppendLine($"Pos: {GlobalPosition}");
+            str.AppendLine($"Rot: {MeshRoot.GlobalRotationDegrees}");
+            str.AppendLine($"Mass: {Mass.ToString()}");
+            if (CoinStack.HeldCoins.Count == 0)
+            { return str.ToString(); }
+            str.AppendLine($"Coins: {CoinStack.HeldCoins.Count}");
+            str.AppendLine($"Stack: {CoinStack.StackHeight.ToString("0.000")}m");
+            str.AppendLine($"Weight: {CoinStack.StackWeight.ToString("0.000")}kg/{CoinStack.MaxStackWeight.ToString("0.000")}kg");
+            return str.ToString();
+
+
+        }
+    }
+
+    public Vector3 DebugGlobalCoinStackPosition => CoinStack.GlobalPosition;
+#endif
 }
+
+/*
+ * (id) Name
+Model
+Sequence
+Cycle
+Mass
+Vel (velocity)
+Pos (position)
+Rot (rotation
+ */

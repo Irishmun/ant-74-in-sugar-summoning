@@ -24,10 +24,16 @@ GameSettings="*res://scripts/settings/GameSettings.cs"
 SceneChangeUtil="*res://scripts/util/SceneChangeUtil.cs"
 GameUI="*res://scenes/UI/gameUI.tscn"
 GameTimer="*res://scripts/game/GameTimer.cs"
+ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
+DebugGui="*res://scripts/debug/DebugGUI.cs"
 
 [dotnet]
 
 project/assembly_name="Third-person-godot"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
 
 [filesystem]
 
