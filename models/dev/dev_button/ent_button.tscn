@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh63yhoe05ua3"]
+
+[ext_resource type="PackedScene" uid="uid://kovchexoelco" path="res://models/dev/dev_button/dev_button.glb" id="1_ebn6i"]
+[ext_resource type="Script" path="res://scripts/puzzle/Button/EntButton.cs" id="2_oihd0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_poii5"]
+height = 0.2
+radius = 0.6
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_trf3q"]
+points = PackedVector3Array(-0.000146806, 0, -0.75, -0.28705, 0, -0.693031, -0.000146806, 0.1, -0.675117, 0.286903, 0, -0.693031, -0.258418, 0.1, -0.623728, -0.530345, 0, -0.530345, 0.258271, 0.1, -0.623728, 0.530198, 0, -0.530345, -0.477339, 0.1, -0.477339, -0.693031, 0, -0.28705, -0.623728, 0.1, -0.258418, 0.477193, 0.1, -0.477339, 0.623581, 0.1, -0.258418, 0.692884, 0, -0.28705, -0.75, 0, -0.000146806, -0.675117, 0.1, -0.000146806, 0.674971, 0.1, -0.000146806, 0.75, 0, -0.000146806, -0.693031, 0, 0.286903, -0.623728, 0.1, 0.258271, 0.623581, 0.1, 0.258271, 0.692884, 0, 0.286903, -0.530345, 0, 0.530198, -0.477339, 0.1, 0.477193, 0.477193, 0.1, 0.477193, 0.530198, 0, 0.530198, -0.28705, 0, 0.692884, -0.258418, 0.1, 0.623581, 0.258271, 0.1, 0.623581, 0.286903, 0, 0.692884, -0.000146806, 0, 0.75, -0.000146806, 0.1, 0.674971)
+
+[node name="ent_button" node_paths=PackedStringArray("ButtonRestNode", "ButtonPressedNode", "ButtonArea", "Targets") instance=ExtResource("1_ebn6i")]
+script = ExtResource("2_oihd0")
+ButtonRestNode = NodePath("dev_button/dev_button_rest")
+ButtonPressedNode = NodePath("dev_button/dev_button_pressed")
+ButtonArea = NodePath("Area3D")
+Targets = []
+
+[node name="Area3D" type="Area3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.602081, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.396338, 0)
+shape = SubResource("CylinderShape3D_poii5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="dev_button/dev_button_base" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dev_button/dev_button_base/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_trf3q")
+
+[node name="dev_button_pressed" parent="dev_button" index="1"]
+gi_mode = 2
+
+[node name="dev_button_rest" parent="dev_button" index="2"]
+gi_mode = 2

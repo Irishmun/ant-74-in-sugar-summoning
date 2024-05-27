@@ -22,4 +22,11 @@ public static class ExtensionMethods
     {
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
+
+    public static bool IsVisibleToCamera3D(this Node3D node, Camera3D camera, out Vector2 screenPosition)
+    {
+        screenPosition = camera.UnprojectPosition(node.GlobalPosition);
+        Rect2 view = camera.GetViewport().GetVisibleRect();
+        return view.HasPoint(screenPosition);
+    }
 }

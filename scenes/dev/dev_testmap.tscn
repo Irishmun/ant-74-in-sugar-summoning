@@ -1,10 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://blw6aaeh8eaoj"]
+[gd_scene load_steps=33 format=3 uid="uid://blw6aaeh8eaoj"]
 
 [ext_resource type="Texture2D" uid="uid://c55m78dlln5v2" path="res://textures/hdris/meadow_2_2k.exr" id="2_a6kca"]
 [ext_resource type="Script" path="res://scripts/settings/EnvironmentSettings.cs" id="2_kvspf"]
 [ext_resource type="Material" uid="uid://b71u8qrpvjwqr" path="res://scenes/dev/dev_tex.tres" id="3_54noc"]
-[ext_resource type="PackedScene" uid="uid://bqh7mls880pj6" path="res://models/dev_terrain/dev_level.tscn" id="3_i41bs"]
+[ext_resource type="PackedScene" uid="uid://bqh7mls880pj6" path="res://models/dev/dev_terrain/dev_level.tscn" id="3_i41bs"]
 [ext_resource type="AudioStream" uid="uid://dvl7551biuhtf" path="res://audio/objects/thud.wav" id="4_nbl6h"]
+[ext_resource type="Script" path="res://scripts/puzzle/Button/ButtonDoor.cs" id="5_82mb2"]
 [ext_resource type="AudioStream" uid="uid://rswjgv6hwbj6" path="res://audio/environment/ambience.ogg" id="5_v6o26"]
 [ext_resource type="Script" path="res://scripts/game/killbox.cs" id="6_g3fi6"]
 [ext_resource type="PackedScene" uid="uid://dlkv0vdobu40k" path="res://prefabs/player.tscn" id="6_vhbwn"]
@@ -16,6 +17,8 @@
 [ext_resource type="Script" path="res://scripts/game/CoinObjective.cs" id="11_1431n"]
 [ext_resource type="LightmapGIData" uid="uid://iua0mnb87ut2" path="res://scenes/dev/dev_testmap.lmbake" id="14_roecc"]
 [ext_resource type="PackedScene" uid="uid://io6jfgvyx0bc" path="res://prefabs/puzzle/Scales.tscn" id="15_0bhql"]
+[ext_resource type="PackedScene" uid="uid://dh63yhoe05ua3" path="res://models/dev/dev_button/ent_button.tscn" id="17_gefoa"]
+[ext_resource type="PackedScene" uid="uid://u47kdnvpvpjd" path="res://prefabs/puzzle/ent_ButtonBridge.tscn" id="19_eiudx"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bgpty"]
 panorama = ExtResource("2_a6kca")
@@ -109,9 +112,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 1, -9.4)
 light_color = Color(1, 0.937255, 0.792157, 1)
 omni_range = 10.0
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Terrain"]
+[node name="CSG_Door" type="CSGBox3D" parent="Terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.7, -6.2)
 size = Vector3(1, 1.5, 0.25)
+script = ExtResource("5_82mb2")
 
 [node name="dev_level" parent="Terrain" instance=ExtResource("3_i41bs")]
 
@@ -127,7 +131,7 @@ shape = SubResource("BoxShape3D_ksmh1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="player" parent="." instance=ExtResource("6_vhbwn")]
-transform = Transform3D(0.841709, 0, -0.539931, 0, 1, 0, 0.539931, 0, 0.841709, 1.34978, 0, -2.05046)
+transform = Transform3D(-0.92507, 0, -0.379796, 0, 1, 0, 0.379796, 0, -0.92507, 2.94978, 0, 2.74954)
 
 [node name="Coins" type="Node" parent="."]
 
@@ -189,7 +193,7 @@ transform = Transform3D(0.692156, 0, 0.721748, 0, 1, 0, -0.721748, 0, 0.692156, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.50933, 0.803036, 1.82355)
 
 [node name="ent_2euro12" parent="Coins" instance=ExtResource("8_v7ofh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.62784, 0.981027, 3.3866)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8278, 2.08103, 12.1866)
 
 [node name="ent_1euro9" parent="Coins" instance=ExtResource("7_41dbc")]
 transform = Transform3D(0.823582, -0.567197, 0, 0.567197, 0.823582, 0, 0, 0, 1, -2.33717, 0.81113, 0.414688)
@@ -243,8 +247,19 @@ stream = SubResource("AudioStreamRandomizer_5xgdn")
 autoplay = true
 bus = &"SFX"
 
-[node name="Scales" parent="." instance=ExtResource("15_0bhql")]
+[node name="ent_button" parent="Entities" node_paths=PackedStringArray("Targets") instance=ExtResource("17_gefoa")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 7.985, 0, 4.288)
+Targets = [NodePath("../../Terrain/CSG_Door")]
+
+[node name="ent_button2" parent="Entities" node_paths=PackedStringArray("Targets") instance=ExtResource("17_gefoa")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -2.415, 2, 9.688)
+Targets = [NodePath("../EntButtonBridge")]
+
+[node name="EntButtonBridge" parent="Entities" instance=ExtResource("19_eiudx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, 9.4)
+
+[node name="Scales" parent="Entities" instance=ExtResource("15_0bhql")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 7.04023, -1.90735e-06, 6.31676)
 MaxHeight = 5.75
 
-[editable path="Scales"]
+[editable path="Entities/Scales"]

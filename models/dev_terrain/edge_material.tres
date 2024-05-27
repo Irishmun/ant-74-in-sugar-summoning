@@ -1,7 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://d2me4sbe2jbju"]
-
-[resource]
-resource_name = "edge_material"
-cull_mode = 2
-albedo_color = Color(0.437493, 0.437493, 0.437493, 1)
-roughness = 0.5
