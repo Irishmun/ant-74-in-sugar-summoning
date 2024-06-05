@@ -177,10 +177,8 @@ public partial class Player : CharacterBody3D
 
     public override void _UnhandledInput(InputEvent e)
     {
-        GD.Print("MayDoStuff: " + _mayDoStuff);
         if (_mayDoStuff == false)
         { return; }
-        GD.Print("inputEvent: " + e.ToString());
 
         if (e is InputEventMouseMotion)
         {

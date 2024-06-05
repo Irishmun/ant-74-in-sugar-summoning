@@ -193,19 +193,11 @@ _data = {
 "FadeToBlack": SubResource("Animation_oygur")
 }
 
-[node name="GameUI" type="Control"]
+[node name="GameUI" type="CanvasLayer"]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme = ExtResource("11_8lrak")
 
 [node name="Non-main menu" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -540,7 +532,7 @@ GoBackFocus = NodePath("../MainPause/VBoxContainer/OptionsButton")
 GoBackParent = NodePath("../MainPause")
 
 [node name="Loading" type="Control" parent="." node_paths=PackedStringArray("_loadingImage")]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -570,7 +562,7 @@ grow_vertical = 0
 texture = ExtResource("5_21o0b")
 
 [node name="ScreenFade" type="Control" parent="." node_paths=PackedStringArray("animator")]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

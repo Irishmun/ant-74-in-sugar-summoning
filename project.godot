@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 
 GameSettings="*res://scripts/settings/GameSettings.cs"
 SceneChangeUtil="*res://scripts/util/SceneChangeUtil.cs"
+PostProcess="*res://prefabs/post_process.tscn"
 GameUI="*res://scenes/UI/gameUI.tscn"
 GameTimer="*res://scripts/game/GameTimer.cs"
 ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"

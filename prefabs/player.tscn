@@ -4552,6 +4552,7 @@ spring_length = 3.0
 [node name="Camera3D" type="Camera3D" parent="CamHorizontal/CamVertical"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 attributes = SubResource("CameraAttributesPractical_3i71b")
+doppler_tracking = 2
 fov = 37.8493
 
 [node name="WalkStream" type="AudioStreamPlayer3D" parent="."]
